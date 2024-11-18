@@ -10,7 +10,7 @@
     
     <ul>
         {% for workout in workouts %}
-            <li>{{ workout.get_activity_type_display }} on {{ workout.date }} (Intensity: {{ workout.intensity }})</li>
+            <a href="{% url 'detail_workout' workout_id=workout.id %}"><li>{{ workout.get_activity_type_display }} on {{ workout.date }} (Intensity: {{ workout.intensity }})</li></a>
         {% empty %}
             <li>No workouts found.</li>
         {% endfor %}
