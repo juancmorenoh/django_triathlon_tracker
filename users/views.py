@@ -14,16 +14,6 @@ def register(request):
         form = userRegistrationForm()
     return render(request, 'users/register.html', {'form': form})
 
-    """
-    def login(request):
-    if request.method == 'POST':
-        form = customerLoginForm(request, data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            return redirect('home')  # Redirect to homepage or dashboard
-    else:
-        form = customerLoginForm()
     
-    return render(request, 'users/login.html', {'form': form})
-    """
+
+    
