@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -128,6 +129,9 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+#properly explained min 16 django part 8
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  #Directory where UPLOADED FILES will be saved
+MEDIA_URL = '/media/' #this is the public URL of the MEDIA_ROOT directory
 
 LOGIN_REDIRECT_URL = 'workout_list'  # Redirect to homepage after login
 LOGIN_URL = 'login' #if user try to acces a "login_required" page, gets redirect to login page
