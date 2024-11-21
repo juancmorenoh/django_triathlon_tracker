@@ -17,6 +17,14 @@
     </ul>
 
     <a href="{% url 'add_workout' %}" >Add workout</a>
-    <a href="{% url 'logout' %}">Logout</a>
+     <!-- LogoutView needs a POST request-->
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Log out</button>
+    </form>
+
+    <a href="{% url 'login' %}" >Login</a>
+    <br>
+    <a href="{% url 'profile' %}" >Profile</a>
 </body>
 </html>

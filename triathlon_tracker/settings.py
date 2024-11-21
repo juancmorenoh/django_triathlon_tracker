@@ -130,3 +130,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 LOGIN_REDIRECT_URL = 'workout_list'  # Redirect to homepage after login
+LOGIN_URL = 'login' #if user try to acces a "login_required" page, gets redirect to login page
