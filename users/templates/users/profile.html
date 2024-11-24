@@ -6,7 +6,11 @@
     <title>Profile details</title>
 </head>
 <body>
+    <div>
+        <img src="{{ user.profile.image.url }}" alt="Mypic">
+    </div>
     <h1>Welcome {{ user.username }} , this is you Profile</h1>
+    <p> Email: {{ user.email }} </p>
     
 </body>
 </html>
