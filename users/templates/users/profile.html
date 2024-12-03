@@ -7,10 +7,20 @@
 </head>
 <body>
     <div>
-        <img src="{{ user.profile.image.url }}" alt="Mypic">
+        <img src="{{ user.profile.image.url }}" alt="Mypic" width="100" height="100">
     </div>
-    <h1>Welcome {{ user.username }} , this is you Profile</h1>
+    <h1>Welcome {{ user.username }}</h1>
     <p> Email: {{ user.email }} </p>
     
+    <!--Forms-->
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset>     
+            <legend>Profile</legend>
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+        </fieldset>     
+        <button type="submit">Update</button>
+    </form>
 </body>
 </html>
