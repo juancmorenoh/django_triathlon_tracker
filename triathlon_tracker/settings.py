@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #my apps
     
-    'workout_logs',
-    'users',
+    'apps.workout_logs',
+    'apps.users',
 ]
 
 
