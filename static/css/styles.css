@@ -1,0 +1,119 @@
+/* General Reset */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #fff7e6; /* Warm, light beige */
+    color: #333;
+    padding: 0;
+    margin: 0;
+}
+
+/* Header Styles */
+header {
+    background-color: #ff7b54; /* Vibrant coral */
+    padding: 10px 0;
+}
+
+header nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+
+header nav ul li {
+    margin: 0 15px;
+}
+
+header nav ul li a{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+header nav ul li a:hover {
+    color: #ffdac1; /* Light peach */
+}
+
+/* Main Section Styles */
+main {
+    padding: 30px 15px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #ff7b54; /* Coral */
+}
+
+p {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+}
+
+/* Style for the logout button in the navbar */
+.nav-logout-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    margin-left: 15px;
+}
+
+.nav-logout-btn:hover {
+    color: #ffdac1; /* Light peach, same as hover effect for links */
+}
+
+
+/* Link Styles */
+a {
+    text-decoration: none;
+    color: #ffa41b; /* Matches button orange */
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #ff6f00; /* Darker orange */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    header nav ul {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    header nav ul li {
+        margin: 10px 0;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    p {
+        font-size: 1rem;
+    }
+}

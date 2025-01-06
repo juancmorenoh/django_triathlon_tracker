@@ -1,10 +1,12 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Workout List{% endblock %}</title>
-    
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
     <!-- Header with navigation -->
@@ -18,7 +20,7 @@
                     <!-- Log out form -->
                     <form method="post" action="{% url 'logout' %}" style="display:inline;">
                         {% csrf_token %}
-                        <button type="submit">Logout</button>
+                        <button type="submit" class="nav-logout-btn">Logout</button>
                     </form>
                 {% else %}
                     <li><a href="{% url 'login' %}">Login</a></li>
