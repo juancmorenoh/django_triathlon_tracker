@@ -12,9 +12,10 @@ class Profile(models.Model):
     def __str__(self):
     
         return f"{self.user.username} Profile"
-    
-    def save(self):
-        super().save() #Understand why we calling the parent class method
+
+    #understand why the args and kwargs are being passed here
+    def save(self, *args, **kwargs):  # Add *args and **kwargs here
+        super().save(*args, **kwargs)  # Pass *args and **kwargs to the parent class's save method
 
         img = Image.open(self.image.path)
 
@@ -22,3 +23,5 @@ class Profile(models.Model):
             output_size = (300,300)
             img.thumbnail(output_size)
             img.save(self.image.path)
+    
+    

@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class WorkoutLogsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'workout_logs'
+    name = 'apps.workout_logs'
