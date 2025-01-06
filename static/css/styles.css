@@ -68,7 +68,11 @@ footer {
     color: white;
     text-align: center;
     padding: 15px 0;
+    position: absolute; 
+    bottom: 0; 
+    width: 100%;
 }
+
 
 /* Style for the logout button in the navbar */
 .nav-logout-btn {
@@ -100,22 +104,29 @@ form p {
     margin: 10px 0;
 }
 
-form button {
-    background-color: #ff7b54; /* Coral color */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-    transition: background-color 0.3s ease;
-}
-
 form button:hover {
-    background-color: #ff6f00; /* Darker orange */
+    background-color: #ff6f00; 
 }
 
+fieldset {
+    border: 2px solid #ff7b54; 
+    padding: 20px;
+    border-radius: 8px;  
+    margin-bottom: 20px; 
+    background-color: #fff; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+}
+
+legend {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #ff7b54; 
+    padding: 0 10px; 
+}
+
+.no-style-form {
+    all: unset;
+}
 /* Link Styles */
 a {
     text-decoration: none;
@@ -131,6 +142,23 @@ a:hover {
     text-align: center;
     margin-top: 20px;
 }
+
+.profile-container {
+    text-align: center; /* Centers all text */
+    margin-bottom: 20px; /* Adds space below the content */
+}
+
+.profile-img-container {
+    margin-top: 15px;  /* Adds space between the welcome text and the image */
+}
+
+.profile-img-container img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; /* Makes the image round */
+    object-fit: cover;
+}
+
 
 /* Responsive Styles */
 @media (max-width: 768px) {

@@ -10,9 +10,10 @@
     <p><strong>Intensity:</strong> {{ workout.intensity }}</p>
     <p><strong>Notes:</strong> {{ workout.notes }}</p>
 
-    <form method="POST" action="{% url 'detail_workout' workout_id=workout.id %}">
+    <form method="POST" action="{% url 'detail_workout' workout_id=workout.id %}" class="no-style-form">
         {% csrf_token %}
         <button type="submit">Delete</button>
+        <br>
     </form>
 
     <a href="{% url 'workout_list' %}" >Back to List</a>

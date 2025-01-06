@@ -1,10 +1,18 @@
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Register</button>
-</form>
+{% extends 'base.html' %}
 
-<p>Already have an account?</p> 
-<a href="{% url 'login' %}">Log in</a>
-<br>
-<a href="{% url 'workout_list' %}">Back to Workout List</a>
+{% block title %} Register {% endblock %}
+
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Register</button>
+    </form>
+
+    <p>Already have an account?</p> 
+    <a href="{% url 'login' %}">Log in</a>
+    <br>
+    <a href="{% url 'workout_list' %}">Back to Workout List</a>
+
+    
+{% endblock %}
