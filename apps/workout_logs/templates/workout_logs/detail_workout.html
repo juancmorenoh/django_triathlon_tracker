@@ -1,17 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workout Details</title>
-</head>
-<body>
-    <h1>{{ workout.get_activity_type_display }} on {{ workout.date }}</h1>
+{% extends 'base.html' %}
+
+{% block title %} Workout - Details {% endblock %}
+
+{% block content %}
+    <h1>Workout Details:</h1>
+    <p>{{ workout.get_activity_type_display }} on {{ workout.date }}</p>
     <p><strong>Distance:</strong> {{ workout.distance_m }} meters</p>
     <p><strong>Duration:</strong> {{ workout.duration }}</p>
     <p><strong>Intensity:</strong> {{ workout.intensity }}</p>
     <p><strong>Notes:</strong> {{ workout.notes }}</p>
-    
+
     <form method="POST" action="{% url 'detail_workout' workout_id=workout.id %}">
         {% csrf_token %}
         <button type="submit">Delete</button>
@@ -19,5 +17,6 @@
 
     <a href="{% url 'workout_list' %}" >Back to List</a>
     
-</body>
-</html>
+{% endblock %}
+
+

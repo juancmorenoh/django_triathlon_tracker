@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workout List</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %} Home - Workout Tracker {% endblock %}
+
+{% block content %}
     <h1>Workout List</h1>
-    
+        
     <ul>
         {% for workout in workouts %}
             <a href="{% url 'detail_workout' workout_id=workout.id %}"><li>{{ workout.get_activity_type_display }} on {{ workout.date }} (Intensity: {{ workout.intensity }})</li></a>
@@ -17,25 +14,5 @@
     </ul>
 
     <a href="{% url 'add_workout' %}" >Add workout</a>
-    <br>
-    <br>
     
-    {% if user.is_authenticated %}
-        <a href="{% url 'profile' %}" >Profile</a>
-        <br>
-        <br>
-        <form method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button type="submit">Log out</button>
-        </form>
-    {% else %}
-        <a href="{% url 'login' %}" >Login</a>
-    {% endif %}
-
-    <br>
-    <br>
-
-     
-    
-</body>
-</html>
+{% endblock %}

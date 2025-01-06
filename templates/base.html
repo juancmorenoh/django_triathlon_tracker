@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Workout List{% endblock %}</title>
+    
+</head>
+<body>
+    <!-- Header with navigation -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'workout_list' %}">Workouts</a></li>
+
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'profile' %}">Profile</a></li>
+                    <!-- Log out form -->
+                    <form method="post" action="{% url 'logout' %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit">Logout</button>
+                    </form>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main content block that changes based on page -->
+    <main>
+        {% block content %}
+        <!-- Page-specific content -->
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Workout Tracker. All rights reserved.</p>
+    </footer>
+</body>
+</html>
