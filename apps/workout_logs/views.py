@@ -11,6 +11,9 @@ class WorkoutListView(ListView):
     template_name = 'workout_logs/workout_list.html' #default would look for <app>/<model>_<viewtype>.html
     context_object_name = 'workouts'
 
+def home(request):
+    return render(request,'workout_logs/homepage.html')
+
 def add_workout(request):
     if request.method ==  'POST':
         form = WorkoutForm(request.POST)

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %} Homepage {% endblock %}
+
+{% block content %}
+<!-- Welcome page of not logged users -->
+<section class="welcome-section">
+    <div class="welcome-container">
+        <h1>Welcome to Your Triathlon Tracker!</h1>
+        <p>Your journey to a stronger, faster, and better you starts here.</p>
+        <p>Ready to track your progress across running, swimming, and cycling?</p>
+
+        <div class="cta-container">
+            <a href="{% url 'register' %}" class="cta-button">Sign Up & Start Training</a>
+            <a href="{% url 'login' %}" class="cta-button">Already a Member? Log In</a>
+        </div>
+    </div>
+</section>
+    
+{% endblock %}
+
+
