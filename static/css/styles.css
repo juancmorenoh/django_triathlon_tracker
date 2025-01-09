@@ -92,20 +92,6 @@ p {
     line-height: 1.6;
 }
 
-/* Footer Styles */
-footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 15px 0;
-    position: absolute; 
-    bottom: 0; 
-    width: 100%;
-}
-
-
-/* Style for the logout button in the navbar */
-
 
 
 
@@ -138,6 +124,16 @@ a:hover {
     object-fit: cover;
 }
 
+/* Footer Styles */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    position: fixed; 
+    bottom: 0; 
+    width: 100%;
+}
 
 /* Responsive Styles */
 @media (max-width: 768px) {

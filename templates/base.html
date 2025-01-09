@@ -19,10 +19,12 @@
     
             <!-- Center navigation links -->
             <ul class="nav-list">
-                <li><a href="{% url 'workout_list' %}">Workouts</a></li>
-                <li><a href="#">About</a></li>
-                {% if user.is_authenticated %}
+                {% if user.is_authenticated %}               
+                    <li><a href="{% url 'workout_list' %}">Workouts</a></li>
                     <li><a href="{% url 'profile' %}">Profile</a></li>
+                {% else %}
+                    <li><a href="#">Training</a></li>
+                    <li><a href="#">About</a></li>
                 {% endif %}
             </ul>
     
