@@ -38,6 +38,9 @@ header {
     display: flex;
     list-style: none;
     gap: 1.5rem; 
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .nav-list a {
@@ -55,12 +58,6 @@ header {
 .user-actions a{
     text-decoration: none;
     color: #fff;
-}
-
-.user-actions form {
-    margin: 0;
-    padding: 0.5rem 0;
-    
 }
 
 .nav-logout-btn {
