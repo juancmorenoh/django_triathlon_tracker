@@ -1,7 +1,5 @@
 /* General Reset */
-*,
-*::before,
-*::after {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -9,38 +7,73 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #fff7e6; /* Warm, light beige */
+    background-color: #fff7e6; 
     color: #333;
     padding: 0;
     margin: 0;
+    min-height: 100vh;
 }
 
 /* Header Styles */
 header {
-    background-color: #ff7b54; /* Vibrant coral */
-    padding: 10px 0;
+    background-color: #ff7b54; 
+    padding: 1rem 0;
 }
 
-header nav ul {
+.nav-container {
     display: flex;
-    justify-content: center;
-    list-style: none;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
 }
 
-header nav ul li {
-    margin: 0 15px;
-}
-
-header nav ul li a{
-    text-decoration: none;
-    color: white;
+.logo a {
+    font-size: 1.5rem;
     font-weight: bold;
-    font-size: 16px;
-    transition: color 0.3s ease;
+    text-decoration: none;
+    color: #fff;
 }
 
-header nav ul li a:hover {
-    color: #ffdac1; /* Light peach */
+.nav-list {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem; 
+}
+
+.nav-list a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.user-actions a{
+    text-decoration: none;
+    color: #fff;
+}
+
+.user-actions form {
+    margin: 0;
+    padding: 0.5rem 0;
+    
+}
+
+.nav-logout-btn {
+    color: #fff;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.nav-logout-btn:hover {
+    color: #ff6f00;
 }
 
 /* Main Section Styles */
@@ -75,58 +108,11 @@ footer {
 
 
 /* Style for the logout button in the navbar */
-.nav-logout-btn {
-    background: none;
-    border: none;
-    color: white;
-    font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
-    transition: color 0.3s ease;
-    margin-left: 15px;
-}
 
-.nav-logout-btn:hover {
-    color: #ffdac1; /* Light peach, same as hover effect for links */
-}
 
-form {
-    background-color: #fff; /* White background */
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    margin: 20px auto;
-}
 
-form p {
-    font-size: 1rem;
-    margin: 10px 0;
-}
 
-form button:hover {
-    background-color: #ff6f00; 
-}
 
-fieldset {
-    border: 2px solid #ff7b54; 
-    padding: 20px;
-    border-radius: 8px;  
-    margin-bottom: 20px; 
-    background-color: #fff; 
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
-}
-
-legend {
-    font-weight: bold;
-    font-size: 1.2rem;
-    color: #ff7b54; 
-    padding: 0 10px; 
-}
-
-.no-style-form {
-    all: unset;
-}
 /* Link Styles */
 a {
     text-decoration: none;
@@ -138,10 +124,6 @@ a:hover {
     color: #ff6f00; /* Darker orange */
 }
 
-.form-footer {
-    text-align: center;
-    margin-top: 20px;
-}
 
 .profile-container {
     text-align: center; /* Centers all text */

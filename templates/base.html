@@ -11,21 +11,33 @@
 <body>
     <!-- Header with navigation -->
     <header>
-        <nav>
-            <ul>
+        <nav class="nav-container">
+            <!-- Left-aligned logo -->
+            <div class="logo">
+                <a href="{% url 'home' %}">Triathlon Tracker</a>
+            </div>
+    
+            <!-- Center navigation links -->
+            <ul class="nav-list">
                 <li><a href="{% url 'workout_list' %}">Workouts</a></li>
-
+                <li><a href="#">About</a></li>
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'profile' %}">Profile</a></li>
-                    <!-- Log out form -->
-                    <form method="post" action="{% url 'logout' %}" class="no-style-form" style="display:inline;">
+                {% endif %}
+            </ul>
+    
+            <!-- Right-aligned user actions -->
+            <div class="user-actions">
+                {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'logout' %}" class="logout-form">
                         {% csrf_token %}
                         <button type="submit" class="nav-logout-btn">Logout</button>
                     </form>
                 {% else %}
-                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <a href="{% url 'login' %}">Login</a>
+                    <a href="{% url 'register' %}">Register</a>
                 {% endif %}
-            </ul>
+            </div>
         </nav>
     </header>
 
