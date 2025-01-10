@@ -3,24 +3,18 @@ from .models import Workout
 from .forms import WorkoutForm
 
 
-
+def home(request):
+    return render(request,'workout_logs/homepage.html')
 
 def workout_list(request):
     workouts = Workout.objects.all()
     return render(request, 'workout_logs/workout_list.html', {'workouts': workouts})
-
-def home(request):
-    return render(request,'workout_logs/homepage.html')
 
 def add_workout(request):
     if request.method ==  'POST':
         form = WorkoutForm(request.POST)
         if form.is_valid():
             form.save()
-        else:
-            # Print errors to the console for debugging if form is invalid
-            print(form.errors) 
-            
         return redirect('workout_list')
     else:
         form = WorkoutForm()
@@ -44,9 +38,6 @@ def delete_workout(request, workout_id):
         return redirect('workout_list')  # Redirect to the workout list after delete
     return render(request,'workout_logs/delete_workout.html',{'workout': workout})
 
-#You can create a separate view for deleting
-#you might create a html with the button and add the block
-#to the detail.html
 def detail_workout(request,workout_id):
     workout = get_object_or_404(Workout, id=workout_id)
     return render(request,'workout_logs/detail_workout.html',{'workout': workout})

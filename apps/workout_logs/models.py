@@ -11,10 +11,24 @@ class Workout(models.Model):
 
     # Define the activity types using choices. This makes it easier to standardize the data.
     ACTIVITY_CHOICES = [
-        ('swim', 'Swimming'),  # 'swim' is stored in the database, 'Swimming' is displayed to users.
-        ('bike', 'Cycling'),
-        ('run', 'Running'),
+        ('swim', 'Swim'),  # 'swim' is stored in the database, 'Swimming' is displayed to users.
+        ('bike', 'Ride'),
+        ('run', 'Run'),
     ]
+
+    INTENSITY_CHOICES = [
+        (1, 'Very Low'),
+        (2, 'Low'),
+        (3, 'Medium'),
+        (4, 'High'),
+        (5, 'Very High'),
+    ]
+
+    name = models.CharField(
+        blank=True,
+        max_length=100,
+        help_text="Name or title of the workout"
+    )
 
     activity_type = models.CharField(
         max_length=10, 
@@ -35,7 +49,7 @@ class Workout(models.Model):
     )
 
     intensity = models.PositiveSmallIntegerField(
-        validators=[MinValueValidator(1), MaxValueValidator(10)],
+        choices=INTENSITY_CHOICES,
         help_text="Intensity of the workout on a scale from 1 to 10"
     )
 
