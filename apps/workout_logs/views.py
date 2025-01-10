@@ -1,15 +1,13 @@
 from django.shortcuts import render , redirect , get_object_or_404
 from .models import Workout
 from .forms import WorkoutForm
-from django.views.generic import ListView
 
 
 
 
-class WorkoutListView(ListView):
-    model = Workout
-    template_name = 'workout_logs/workout_list.html' #default would look for <app>/<model>_<viewtype>.html
-    context_object_name = 'workouts'
+def workout_list(request):
+    workouts = Workout.objects.all()
+    return render(request, 'workout_logs/workout_list.html', {'workouts': workouts})
 
 def home(request):
     return render(request,'workout_logs/homepage.html')
