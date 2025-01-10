@@ -12,22 +12,15 @@
 
 
 
-    <!-- Form to update workout-->
-    <form method="POST" action="{% url 'update_workout' workout_id=workout.id %}">
-        {% csrf_token %}
-        <button type="submit">Update</button>
-        <br>
-    </form>
+    <!-- Link to update workout-->
+    <a href="{% url 'update_workout' workout_id=workout.id %}">Update</a>
+    <br>
 
+    <!-- Link to delete workout-->
+    <a href="{% url 'delete_workout' workout_id=workout.id %}">Delete</a>
     <br>
-    <!-- Form to delete workout-->
-    <form method="POST" action="{% url 'detail_workout' workout_id=workout.id %}">
-        {% csrf_token %}
-        <button type="submit">Delete</button>
-        <br>
-    </form>
-    <hr>
-    <br>
+    
+    <!-- Link to go back to list of workouts-->
     <a href="{% url 'workout_list' %}" >Back to List</a>
     
 {% endblock %}

@@ -39,14 +39,18 @@ def update_workout(request, workout_id):
         form = WorkoutForm(instance=workout)
     return render(request, 'workout_logs/add_workout.html', {'form': form})
 
+def delete_workout(request, workout_id):
+    workout = get_object_or_404(Workout, id=workout_id)
+    if request.method == "POST":
+        workout.delete()
+        return redirect('workout_list')  # Redirect to the workout list after delete
+    return render(request,'workout_logs/delete_workout.html',{'workout': workout})
+
 #You can create a separate view for deleting
 #you might create a html with the button and add the block
 #to the detail.html
 def detail_workout(request,workout_id):
     workout = get_object_or_404(Workout, id=workout_id)
-    if request.method == "POST":
-        workout.delete()
-        return redirect('workout_list')  # Redirect to the workout list after deletion
     return render(request,'workout_logs/detail_workout.html',{'workout': workout})
 
 
