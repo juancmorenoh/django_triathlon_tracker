@@ -50,7 +50,7 @@ class Workout(models.Model):
 
     intensity = models.PositiveSmallIntegerField(
         choices=INTENSITY_CHOICES,
-        help_text="Intensity of the workout on a scale from 1 to 10"
+        help_text="Intensity of the workout on a scale from 1 - 5"
     )
 
     notes = models.TextField(

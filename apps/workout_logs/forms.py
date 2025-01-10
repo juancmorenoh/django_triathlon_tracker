@@ -4,7 +4,7 @@ from .models import Workout
 class WorkoutForm(forms.ModelForm):
     class Meta:
         model = Workout  # Link the form to the Workout model
-        fields = ['activity_type', 'distance_m', 'duration', 'date', 'intensity', 'notes']  # Specify which fields to include in the form
+        fields = ['name', 'activity_type', 'distance_m', 'duration', 'date', 'intensity', 'notes']  # Specify which fields to include in the form
         
         # Custom widget for the date field
         widgets = {
@@ -16,6 +16,6 @@ class WorkoutForm(forms.ModelForm):
             'distance_m': 'Distance (in meters)',
             'duration': 'Duration',
             'date': 'Workout Date',
-            'intensity': 'Intensity (1-10)',
+            'intensity': 'Intensity (1-5)',
             'notes': 'Additional Notes',
         }
