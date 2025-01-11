@@ -8,7 +8,17 @@ def home(request):
 
 def workout_list(request):
     workouts = Workout.objects.all()
-    return render(request, 'workout_logs/workout_list.html', {'workouts': workouts})
+    activity_type = request.GET.get('activity_type')
+
+    if activity_type:
+        workouts = workouts.filter(activity_type=activity_type)
+    
+    context = {
+        'workouts': workouts,
+    }
+        
+
+    return render(request, 'workout_logs/workout_list.html', context)
 
 def add_workout(request):
     if request.method ==  'POST':

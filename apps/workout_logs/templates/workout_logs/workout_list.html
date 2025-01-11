@@ -4,7 +4,23 @@
 
 {% block content %}
     <h1>Workout List</h1>
-     
+
+    <!-- Form to filter the workouts-->
+    <form method="get" action="{% url 'workout_list' %}">
+
+        <label for="activity_type">Filter by Activity:</label>
+        <select name="activity_type" id="activity_type">
+            <option value="" {% if not request.GET.activity_type %}selected{% endif %}>All</option>
+            <option value="swim" {% if request.GET.activity_type == 'swim' %}selected{% endif %}>Swimming</option>
+            <option value="bike" {% if request.GET.activity_type == 'bike' %}selected{% endif %}>Cycling</option>
+            <option value="run" {% if request.GET.activity_type == 'run' %}selected{% endif %}>Running</option>
+        </select>
+
+        
+
+        <button type="submit">Filter</button>    
+    </form>
+
     <div class="workout-table">
         <table>
             <thead>
@@ -26,6 +42,10 @@
                         <td>{{ workout.duration }}</td>
                         <td>{{ workout.name }}</td>
                         <td>{{ workout.intensity }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td>No workout found</td>
                     </tr>
                 {% endfor %}
             </tbody>
