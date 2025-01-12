@@ -1,4 +1,5 @@
 from django.shortcuts import render , redirect , get_object_or_404
+from django.contrib.auth.decorators import login_required
 from .models import Workout
 from .forms import WorkoutForm
 
@@ -6,20 +7,21 @@ from .forms import WorkoutForm
 def home(request):
     return render(request,'workout_logs/homepage.html')
 
+@login_required
 def workout_list(request):
     q = request.GET.get('q') # q in quotes is whatever is passed in the URL. If there's no q, it will be None.
+    workouts = Workout.objects.filter(user = request.user)
+
     if q:
         if q.isdigit(): 
             q = int(q)
             workouts = Workout.objects.filter(distance_m__icontains=q)
         else:
+             #Use Q object instead (remember to implement)
             workouts = (
                 Workout.objects.filter(activity_type__icontains=q) | 
                 Workout.objects.filter(name__icontains=q)
-            )
-        
-    else:
-        workouts = Workout.objects.all()
+            )       
 
     workouts_count = workouts.count()
 

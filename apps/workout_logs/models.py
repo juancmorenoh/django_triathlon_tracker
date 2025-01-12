@@ -9,7 +9,7 @@ class Workout(models.Model):
     This model represents a workout, including details such as activity type, 
     distance, duration, intensity, date, and optional notes.
     """
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     # Define the activity types using choices. This makes it easier to standardize the data.
     ACTIVITY_CHOICES = [
