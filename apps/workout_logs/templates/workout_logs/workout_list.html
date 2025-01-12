@@ -4,22 +4,20 @@
 
 {% block content %}
     <h1>Workout List</h1>
+    <div> 
+        <h3>Welcome to your workout tracker! Here you can add, view, and edit your workouts.</h3>
+        <a href="{% url 'add_workout' %}" >Add workout +</a>
+    </div>
+    <h5>There are {{ workouts_count }} workouts</h5>
 
-    <!-- Form to filter the workouts-->
-    <form method="get" action="{% url 'workout_list' %}">
+    <a href="{% url 'workout_list' %}">All</a>
 
-        <label for="activity_type">Filter by Activity:</label>
-        <select name="activity_type" id="activity_type">
-            <option value="" {% if not request.GET.activity_type %}selected{% endif %}>All</option>
-            <option value="swim" {% if request.GET.activity_type == 'swim' %}selected{% endif %}>Swimming</option>
-            <option value="bike" {% if request.GET.activity_type == 'bike' %}selected{% endif %}>Cycling</option>
-            <option value="run" {% if request.GET.activity_type == 'run' %}selected{% endif %}>Running</option>
-        </select>
-
-        
-
-        <button type="submit">Filter</button>    
+    <form method="GET" action="{% url 'workout_list' %}">
+        <label for="search-text">Filter by activity, distance or name</label>
+        <input type="text" id="search-text" name="q" placeholder="Type to filter...">
+        <button type="submit">Submit</button>
     </form>
+    
 
     <div class="workout-table">
         <table>
@@ -52,6 +50,6 @@
         </table>
     </div>
 
-    <a href="{% url 'add_workout' %}" >Add workout</a>
+    
     
 {% endblock %}

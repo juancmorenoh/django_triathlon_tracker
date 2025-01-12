@@ -7,17 +7,26 @@ def home(request):
     return render(request,'workout_logs/homepage.html')
 
 def workout_list(request):
-    workouts = Workout.objects.all()
-    activity_type = request.GET.get('activity_type')
+    q = request.GET.get('q') # q in quotes is whatever is passed in the URL. If there's no q, it will be None.
+    if q:
+        if q.isdigit(): 
+            q = int(q)
+            workouts = Workout.objects.filter(distance_m__icontains=q)
+        else:
+            workouts = (
+                Workout.objects.filter(activity_type__icontains=q) | 
+                Workout.objects.filter(name__icontains=q)
+            )
+        
+    else:
+        workouts = Workout.objects.all()
 
-    if activity_type:
-        workouts = workouts.filter(activity_type=activity_type)
-    
+    workouts_count = workouts.count()
+
     context = {
         'workouts': workouts,
-    }
-        
-
+        'workouts_count' : workouts_count,
+    } 
     return render(request, 'workout_logs/workout_list.html', context)
 
 def add_workout(request):

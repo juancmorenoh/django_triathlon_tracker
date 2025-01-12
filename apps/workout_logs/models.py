@@ -11,7 +11,7 @@ class Workout(models.Model):
 
     # Define the activity types using choices. This makes it easier to standardize the data.
     ACTIVITY_CHOICES = [
-        ('swim', 'Swim'),  # 'swim' is stored in the database, 'Swimming' is displayed to users.
+        ('swim', 'Swim'),  # 'swim' is stored in the database, 'Swim' is displayed to users.
         ('bike', 'Ride'),
         ('run', 'Run'),
     ]
