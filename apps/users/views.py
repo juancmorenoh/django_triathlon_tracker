@@ -11,7 +11,7 @@ def register(request):
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('workout_list')  # Redirect to your homepage or any other page
+            return redirect('profile') 
     else:
         form = UserRegistrationForm()
     return render(request, 'users/register.html', {'form': form})
@@ -33,9 +33,6 @@ def profile(request):
         user_form =  UserUpdateForm(instance=request.user)
         profile_form = ProfileUpdateForm(instance=request.user.profile)
     
-    #You pass to the template a dictionary called context
-    #Left value is the name you will use in the template
-    #right value is what you are actually passing (The variable created in THIS view)
     context = {
         'user_form': user_form,
         'profile_form': profile_form
