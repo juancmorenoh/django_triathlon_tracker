@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %} Races - Add {% endblock %}
+
+{% block content %}
+    
+    {% if form.instance.pk %}
+        <h1>Update the race</h1>
+    {% else %}
+        <h1>Create a new race</h1>
+    {% endif %}
+    
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+    
+
+    {% if form.instance.pk %}
+    <a href="{% url 'delete_race' race.id%}">Delete</a>
+    {% endif %}
+
+    <a href="{% url 'races' %}">Back to the List</a>
+{% endblock %}

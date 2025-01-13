@@ -8,4 +8,9 @@ urlpatterns = [
     path('workouts/<int:workout_id>/', views.detail_workout, name='detail_workout'),
     path('workouts/<int:workout_id>/update/', views.update_workout, name='update_workout'),
     path('workouts/<int:workout_id>/delete/', views.delete_workout, name='delete_workout'),
+
+    path('races/', views.races, name='races'),
+    path('races/add', views.add_race, name='add_race'),
+    path('races/<int:race_id>/delete', views.delete_race, name='delete_race'),
+    path('races/<int:race_id>/update', views.update_race, name='update_race'),
 ]

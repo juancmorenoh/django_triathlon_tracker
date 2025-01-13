@@ -1,5 +1,5 @@
 from django import forms
-from .models import Workout
+from .models import Workout, Race
 
 class WorkoutForm(forms.ModelForm):
     class Meta:
@@ -18,4 +18,18 @@ class WorkoutForm(forms.ModelForm):
             'date': 'Workout Date',
             'intensity': 'Intensity (1-5)',
             'notes': 'Additional Notes',
+        }
+
+class RaceForm(forms.ModelForm):
+    class Meta:
+        model = Race
+        fields = ['race_name','date','prediction_time','location']
+        labels = {
+            'race_name': 'Race Name',
+            'date': 'Race Date',
+            'prediction_time': 'Predicted Time',
+            'location': 'Location',
+        }
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'}),  # Ensures the browser uses a date picker
         }

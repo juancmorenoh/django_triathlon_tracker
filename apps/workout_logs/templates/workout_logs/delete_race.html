@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %} Races - Delete {% endblock %}
+
+{% block content %}
+    
+    <form method="POST">
+        {% csrf_token %}
+        <p> Are you sure you want to delete {{ race }}?</p>
+        <button type="submit">Delete</button>
+    </form>
+
+    <a href="{% url 'races' %}">Back to Races</a>
+    
+{% endblock %}

@@ -79,7 +79,7 @@ class Race(models.Model):
 
     
     class Meta:
-        ordering = ['-date']
+        ordering = ['date']
 
     def __str__(self):
-        return self.name
+        return self.race_name

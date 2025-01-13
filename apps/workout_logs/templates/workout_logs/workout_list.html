@@ -39,7 +39,7 @@
             <tbody>
                 {% for workout in workouts %}
                     <tr>
-                        <td>{{ workout.get_activity_type_display }}</td>
+                        <td><a href="{% url 'update_workout' workout.id %}">{{ workout.get_activity_type_display }}</a></td>
                         <td>{{ workout.date }}</td>
                         <td>{{ workout.distance_m }} m</td>
                         <td>{{ workout.duration }}</td>
