@@ -65,4 +65,21 @@ class Workout(models.Model):
         # get_activity_type_display() returns the user-friendly name from ACTIVITY_CHOICES.
         # django generates get_<field_name>_display() function when using "choices" field
         return f"{self.get_activity_type_display()} on {self.date}"
+
+
+
+class Race(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
+
+    race_name = models.CharField(max_length=100)
+    date = models.DateField()
+    prediction_time = models.DurationField()
+    final_time = models.DurationField(null=True, blank=True)
+    location = models.CharField(max_length=200)
+
     
+    class Meta:
+        ordering = ['-date']
+
+    def __str__(self):
+        return f"Race on {self.date} for {self.user.username}"
