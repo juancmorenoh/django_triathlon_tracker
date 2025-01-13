@@ -3,7 +3,12 @@
 {% block title %} Home - Workout Tracker {% endblock %}
 
 {% block content %}
+    
     <h1>Workout List</h1>
+    {% if user.is_authenticated %}
+    <h2>Welcome, {{ user.username }}!</h2>
+    <br>
+    {% endif %}
     <div> 
         <h3>Welcome to your workout tracker! Here you can add, view, and edit your workouts.</h3>
         <a href="{% url 'add_workout' %}" >Add workout +</a>
