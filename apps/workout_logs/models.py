@@ -82,4 +82,4 @@ class Race(models.Model):
         ordering = ['-date']
 
     def __str__(self):
-        return f"Race on {self.date} for {self.user.username}"
+        return self.name
