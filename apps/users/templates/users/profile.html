@@ -2,27 +2,13 @@
 
 {% block title %} Profile {% endblock %}
 
-{% block content %}
-    <div class="profile-container">
-        <h1>Welcome <span>{{ user.username }}</span></h1>
-        <div class="profile-img-container">
-            <img src="{{ user.profile.image.url }}" alt="Mypic">
-        </div>
-        <p>Email: {{ user.email }}</p>
+{% block content %}   
+    <div class="profile-img-container">
+        <img src="{{ user.profile.image.url }}" alt="Mypic">
     </div>
-
-    <!--Forms-->
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <fieldset>     
-            <legend>Profile</legend>
-            {{ user_form.as_p }}
-            {{ profile_form.as_p }}
-        </fieldset>     
-        <button type="submit">Update</button>
-    </form>
-
-    <a href="{% url 'workout_list' %}">Back to Workout List</a>
     
+        
+
+    <a href="{% url 'profile_update' %}">Update</a>
 {% endblock %}
 

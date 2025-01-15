@@ -71,9 +71,9 @@ def detail_workout(request,workout_id):
 #CRUD RACE MODEL
 @login_required
 def races(request):
-    current_date = datetime.now()
-    user_races = Race.objects.filter(user = request.user)
     
+    user_races = Race.objects.filter(user = request.user)
+    current_date = datetime.now()
     upcoming_races = Race.objects.filter(date__gte=current_date)
     past_races = Race.objects.filter(date__lt=current_date)
     past_races_count = past_races.count()

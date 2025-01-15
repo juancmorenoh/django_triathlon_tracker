@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %} Profile - update{% endblock %}
+
+{% block content %}   
+    <h1>Modify Profile</h1>
+        
+    <!--Forms-->
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset>     
+            <legend>Profile</legend>
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+        </fieldset>     
+        <button type="submit">Update</button>
+    </form>
+
+    <a href="{% url 'profile' %}">Back to Profile</a>
+    
+{% endblock %}
+
