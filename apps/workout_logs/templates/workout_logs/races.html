@@ -10,23 +10,43 @@
     <br>
     {% endif %}
     <div> 
-        <h3>Here you can see all your races</h3>
         <a href="{% url 'add_race' %}" >Create a new race</a>
     </div>
-    <h5>You will be/are competing in {{ races_count }} races</h5>
-
-    {% for race in races %}
     <hr>
-        <div class="race-contaienr">
-            <p>Name: {{ race.race_name }}</p>
-            <p>Location: {{ race.location }}</p>
-            <p>Date: {{ race.date }}</p>
-            <p>Goal time: {{ race.prediction_time }}</p>
+    <div class="races-container">
+        <div>
+            <h5>Your upcoming races</h5>
+            <h6>Total: {{ upcoming_races_count }}</h6>
+            {% for race in upcoming_races %}
+                <div>
+                    <p>Name: {{ race.race_name }}</p>
+                    <p>Location: {{ race.location }}</p>
+                    <p>Date: {{ race.date }}</p>
+                    <p>Goal time: {{ race.prediction_time }}</p>
+                </div>
+                <a href="{% url 'delete_race' race.id %}">Delete</a>
+                <a href="{% url 'update_race' race.id %}">Update</a>
+                <hr>
+            {% endfor %}
         </div>
-        <a href="{% url 'delete_race' race.id %}">Delete</a>
-        <a href="{% url 'update_race' race.id %}">Update</a>
-    {% endfor %}
-
+        <div>
+            <h5>Your past races</h5>
+            <h6>Total: {{ past_races_count }}</h6>
+            {% for race in past_races %}
+                <div>
+                    <p>Name: {{ race.race_name }}</p>
+                    <p>Location: {{ race.location }}</p>
+                    <p>Date: {{ race.date }}</p>
+                    <p>Goal time: {{ race.prediction_time }}</p>
+                </div>
+                <a href="{% url 'delete_race' race.id %}">Delete</a>
+                <a href="{% url 'update_race' race.id %}">Update</a>
+                <hr>
+            {% endfor %}
+        </div>
+    </div>
+    
+    
     
 
     

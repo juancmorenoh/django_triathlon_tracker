@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Workout, Race
 from .forms import WorkoutForm, RaceForm
 
+from datetime import datetime
 
 def home(request):
     return render(request,'workout_logs/homepage.html')
@@ -70,13 +71,19 @@ def detail_workout(request,workout_id):
 #CRUD RACE MODEL
 @login_required
 def races(request):
-    
+    current_date = datetime.now()
     user_races = Race.objects.filter(user = request.user)
-    races_count = user_races.count()
-
+    
+    upcoming_races = Race.objects.filter(date__gte=current_date)
+    past_races = Race.objects.filter(date__lt=current_date)
+    past_races_count = past_races.count()
+    upcoming_races_count = upcoming_races.count()
     context = {
         'races': user_races,
-        'races_count' : races_count,
+        'past_races': past_races,
+        'upcoming_races': upcoming_races,
+        'past_races_count': past_races_count,
+        'upcoming_races_count': upcoming_races_count,
     }
 
     return render(request,'workout_logs/races.html', context)
