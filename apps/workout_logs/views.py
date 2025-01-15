@@ -35,7 +35,9 @@ def add_workout(request):
     if request.method ==  'POST':
         form = WorkoutForm(request.POST)
         if form.is_valid():
-            form.save()
+            workout = form.save(commit=False)
+            workout.user = request.user 
+            workout.save()
         return redirect('workout_list')
     else:
         form = WorkoutForm()
@@ -47,6 +49,7 @@ def update_workout(request, workout_id):
         form = WorkoutForm(request.POST, instance=workout)
         if form.is_valid():
             form.save()
+
             return redirect('workout_list')  # Redirect to the workout list after update
     else:
         form = WorkoutForm(instance=workout)
@@ -65,6 +68,7 @@ def detail_workout(request,workout_id):
 
 
 #CRUD RACE MODEL
+@login_required
 def races(request):
     
     user_races = Race.objects.filter(user = request.user)
