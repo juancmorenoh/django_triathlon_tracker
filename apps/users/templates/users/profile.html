@@ -17,7 +17,7 @@
     
             <div class="last-4-weeks">
                 <h3>Last 4 Weeks</h3>
-                <p>Activities: {{ stats.activity.last_4_weeks_count }}</p>
+                <p>Activities: {{ data.last_4_weeks_count }}</p>
                 <p>Avg Distance: {{ data.avg_distance_last_4_weeks|floatformat:2 }} km</p>
                 <p>Avg Time: {{ data.avg_time_last_4_weeks }}</p>
             </div>
@@ -29,6 +29,9 @@
             </div>
     
             <div class="yearly">
+                
+                
+                <h3>Yearly Statistics</h3>
                 <form method="get">
                     {% for key, value in request.GET.items %}
                         <input type="hidden" name="{{ key }}" value="{{ value }}">
@@ -42,8 +45,6 @@
                         {% endfor %}
                     </select>
                 </form>
-                
-                <h3>Yearly Statistics ({{ data.selected_year }})</h3>
                 <p>Activities: {{ data.yearly_count }}</p>
                 <p>Total Distance: {{ data.yearly_distance|floatformat:2 }} km</p>
                 <p>Total Time: {{ data.yearly_time }}</p>

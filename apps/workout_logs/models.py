@@ -126,3 +126,15 @@ class Discipline(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+class Goal(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
+    goal_type = models.CharField(max_length=50) 
+    target_value = models.FloatField() 
+    achieved = models.BooleanField(default=False)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    description = models.TextField()
+    def __str__(self):
+        return f'{self.goal_type} goal for {self.user.username}'
