@@ -17,8 +17,11 @@
     <p><strong>Final Time:</strong> Not yet available</p>
     {% endif %}
 
-    <h3>Disciplines:</h3>
     
+    <h3>Disciplines:</h3>
+    {% if race.race_type %}
+        <h5> Race type: {{ race.race_type }}</h5>
+    {% endif %}
     <div class="discipline-container">
         {% for discipline in disciplines %}
             <div class="discipline-item">

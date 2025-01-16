@@ -79,6 +79,25 @@ class Race(models.Model):
     location = models.CharField(max_length=200)
 
     
+    @property # function that behaves like attributes
+    def race_type(self):
+        
+        disciplines = list(
+            self.disciplines.values_list('name', flat=True)
+        )
+
+        if "swim" in disciplines and "run" in disciplines and len(disciplines) == 2:
+            return "Aquathlon"
+        elif "run" in disciplines and "ride" in disciplines and len(disciplines) == 2:
+            return "Duathlon"
+        elif "swim" in disciplines and "ride" in disciplines and len(disciplines) == 2:
+            return "Aquabike"
+        elif "swim" in disciplines and "ride" in disciplines and "run" in disciplines and len(disciplines) == 3:
+            return "Triathlon"
+        else:
+            return None
+
+    
     class Meta:
         ordering = ['date']
 
