@@ -6,9 +6,58 @@
     <div class="profile-img-container">
         <img src="{{ user.profile.image.url }}" alt="Mypic">
     </div>
-    
-        
-
     <a href="{% url 'profile_update' %}">Update</a>
+
+    <div class="statistics-container">
+        
+    
+        {% for activity, data in stats.items %}
+        <div class="activity-container">
+            <h2>{{ activity|title }} Statistics</h2>
+    
+            <div class="last-4-weeks">
+                <h3>Last 4 Weeks</h3>
+                <p>Activities: {{ stats.activity.last_4_weeks_count }}</p>
+                <p>Avg Distance: {{ data.avg_distance_last_4_weeks|floatformat:2 }} km</p>
+                <p>Avg Time: {{ data.avg_time_last_4_weeks }}</p>
+            </div>
+            
+            <div class="longest">
+                <h3>Longest Activity</h3>
+                <p>Longest Distance: {{ data.longest_distance|floatformat:2 }} km</p>
+                <p>Longest Time: {{ data.longest_time }}</p>
+            </div>
+    
+            <div class="yearly">
+                <form method="get">
+                    {% for key, value in request.GET.items %}
+                        <input type="hidden" name="{{ key }}" value="{{ value }}">
+                    {% endfor %}
+                    <label for="year_{{ activity }}">Select year for {{ activity }}:</label>
+                    <select id="year_{{ activity }}" name="year_{{ activity }}" onchange="this.form.submit()">
+                        {% for year in range_selected_years %}
+                            <option value="{{ year }}" {% if year == data.selected_year %}selected{% endif %}>
+                                {{ year }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </form>
+                
+                <h3>Yearly Statistics ({{ data.selected_year }})</h3>
+                <p>Activities: {{ data.yearly_count }}</p>
+                <p>Total Distance: {{ data.yearly_distance|floatformat:2 }} km</p>
+                <p>Total Time: {{ data.yearly_time }}</p>
+            </div> 
+    
+            <div class="all-time">
+                <h3>All Time</h3>
+                <p>Total Activities: {{ data.total_activities }}</p>
+                <p>Total Distance: {{ data.total_distance|floatformat:2 }} km</p>
+                <p>Total Time: {{ data.total_time }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
 {% endblock %}
 
