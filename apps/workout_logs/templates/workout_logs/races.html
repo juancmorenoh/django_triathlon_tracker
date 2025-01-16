@@ -18,30 +18,31 @@
             <h5>Your upcoming races</h5>
             <h6>Total: {{ upcoming_races_count }}</h6>
             {% for race in upcoming_races %}
+            <a href="{% url 'detail_race' race.id %}">
                 <div>
                     <p>Name: {{ race.race_name }}</p>
                     <p>Location: {{ race.location }}</p>
                     <p>Date: {{ race.date }}</p>
                     <p>Goal time: {{ race.prediction_time }}</p>
                 </div>
-                <a href="{% url 'delete_race' race.id %}">Delete</a>
-                <a href="{% url 'update_race' race.id %}">Update</a>
-                <hr>
+            </a>      
+            <hr>      
             {% endfor %}
         </div>
         <div>
             <h5>Your past races</h5>
             <h6>Total: {{ past_races_count }}</h6>
             {% for race in past_races %}
+            <a href="{% url 'detail_race' race.id %}">
                 <div>
                     <p>Name: {{ race.race_name }}</p>
                     <p>Location: {{ race.location }}</p>
                     <p>Date: {{ race.date }}</p>
-                    <p>Goal time: {{ race.prediction_time }}</p>
+                    <p>Final time: {{ race.final_time }}</p>
                 </div>
-                <a href="{% url 'delete_race' race.id %}">Delete</a>
-                <a href="{% url 'update_race' race.id %}">Update</a>
-                <hr>
+                
+            </a>
+            <hr>
             {% endfor %}
         </div>
     </div>

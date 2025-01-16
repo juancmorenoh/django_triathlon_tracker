@@ -124,3 +124,10 @@ def update_race(request, race_id):
         'form': form,
     }
     return render(request, 'workout_logs/add_race.html', context)
+
+
+def detail_race(request, race_id):
+    race = get_object_or_404(Race, id= race_id)
+    
+    context={ 'race': race } 
+    return render(request, 'workout_logs/detail_race.html', context)

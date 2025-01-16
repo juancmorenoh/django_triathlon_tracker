@@ -10,7 +10,8 @@ urlpatterns = [
     path('workouts/<int:workout_id>/delete/', views.delete_workout, name='delete_workout'),
 
     path('races/', views.races, name='races'),
-    path('races/add', views.add_race, name='add_race'),
-    path('races/<int:race_id>/delete', views.delete_race, name='delete_race'),
-    path('races/<int:race_id>/update', views.update_race, name='update_race'),
+    path('races/add/', views.add_race, name='add_race'),
+    path('races/<int:race_id>/',views.detail_race, name ='detail_race'),
+    path('races/<int:race_id>/delete/', views.delete_race, name='delete_race'),
+    path('races/<int:race_id>/update/', views.update_race, name='update_race'),
 ]

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %} Race - Details {% endblock %}
+
+{% block content %}
+    <h1>Race Details:</h1>
+    <p>{{ race }} on {{ race.date }} in {{ race.location }}</p>
+    
+    <a href="{% url 'delete_race' race.id %}">Delete</a>
+    <a href="{% url 'update_race' race.id %}">Update</a>
+
+    
+{% endblock %}
