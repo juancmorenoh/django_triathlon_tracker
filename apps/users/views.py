@@ -48,23 +48,18 @@ def update_profile(request):
 def profile(request):
     user = request.user
     current_date = datetime.now()
-    #
     current_year = current_date.year
     four_weeks_ago = current_date - timedelta(weeks=4)
 
     activity_types = ['run', 'ride', 'swim']
     stats = {}
 
-    #
     range_selected_years = range(current_year - 5, current_year + 1)
     
     for activity in activity_types:
-        #
+    
         selected_year = int(request.GET.get(f'year_{activity}', current_year))
         workouts = Workout.objects.filter(user=user, activity_type=activity)
-
-
-        
 
         last_4_weeks = workouts.filter(date__gte=four_weeks_ago) #any date >= 4weeks ago
         last_4_weeks_count = last_4_weeks.count()
@@ -75,17 +70,14 @@ def profile(request):
         longest_distance = longest_activity['distance_m__max'] or 0
         longest_time = longest_activity['duration__max'] or 0
 
-
         total_distance = workouts.aggregate(Sum('distance_m'))['distance_m__sum'] or 0
         total_time = workouts.aggregate(Sum('duration'))['duration__sum'] or 0
         total_activities = workouts.count()
 
-        #
         yearly_workouts = workouts.filter(date__year=selected_year)
         yearly_count = yearly_workouts.count()
         yearly_distance = yearly_workouts.aggregate(Sum('distance_m'))['distance_m__sum'] or 0
         yearly_time = yearly_workouts.aggregate(Sum('duration'))['duration__sum'] or 0
-
 
         stats[activity] = {
             'last_4_weeks_count': last_4_weeks_count,
@@ -97,14 +89,12 @@ def profile(request):
             'total_time': total_time,
             'total_activities': total_activities,
 
-            #
             'yearly_count': yearly_count,
-            'yearly_distance': yearly_distance / 1000,  # Convert to km
+            'yearly_distance': yearly_distance / 1000, 
             'yearly_time': yearly_time,
             'selected_year': selected_year
         }
 
-    
     context = {
         'stats': stats,
         'range_selected_years': range_selected_years,

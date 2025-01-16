@@ -70,6 +70,7 @@ class Workout(models.Model):
 
 class Race(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
+    
 
     race_name = models.CharField(max_length=100)
     date = models.DateField()
@@ -83,3 +84,26 @@ class Race(models.Model):
 
     def __str__(self):
         return self.race_name
+    
+
+class Discipline(models.Model):
+    ACTIVITY_CHOICES = [
+        ('swim', 'Swim'),
+        ('ride', 'Ride'),
+        ('run', 'Run'),
+    ]
+
+    race = models.ForeignKey(Race, on_delete=models.CASCADE, related_name="disciplines")
+    name = models.CharField(
+        max_length=10,
+        choices=ACTIVITY_CHOICES,
+        help_text="Select the type of discipline"
+    )
+
+    distance = models.IntegerField(help_text="Distance in meters")
+    time_limit = models.DurationField(null=True, blank=True, help_text="Optional time limit for the discipline")
+    order = models.PositiveIntegerField(help_text="Order of the discipline in the race")
+    
+
+    def __str__(self):
+        return self.name
