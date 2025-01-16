@@ -108,6 +108,19 @@ p {
     gap: 20px;
 }
 
+
+.discipline-container{
+    display: flex;
+}
+
+.discipline-item{
+    flex: 1;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid black;
+}
+
+
 /* Link Styles */
 a {
     text-decoration: none;

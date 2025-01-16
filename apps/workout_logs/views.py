@@ -128,6 +128,6 @@ def update_race(request, race_id):
 
 def detail_race(request, race_id):
     race = get_object_or_404(Race, id= race_id)
-    
-    context={ 'race': race } 
+    disciplines = race.disciplines.all() #related_name in the model= disciplines
+    context={ 'race': race , 'disciplines': disciplines} 
     return render(request, 'workout_logs/detail_race.html', context)

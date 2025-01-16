@@ -3,9 +3,43 @@
 {% block title %} Race - Details {% endblock %}
 
 {% block content %}
-    <h1>Race Details:</h1>
-    <p>{{ race }} on {{ race.date }} in {{ race.location }}</p>
     
+    
+    <h1>{{ race.race_name }}</h1>
+
+    <p><strong>Date:</strong> {{ race.date }}</p>
+    <p><strong>Location:</strong> {{ race.location }}</p>
+    <p><strong>Prediction Time:</strong> {{ race.prediction_time }}</p>
+
+    {% if race.final_time %}
+    <p><strong>Final Time:</strong> {{ race.final_time }}</p>
+    {% else %}
+    <p><strong>Final Time:</strong> Not yet available</p>
+    {% endif %}
+
+    <h3>Disciplines:</h3>
+    
+    <div class="discipline-container">
+        {% for discipline in disciplines %}
+            <div class="discipline-item">
+                <strong>{{ discipline|title }}</strong> 
+                <br>
+                <strong>Distance:</strong> {{ discipline.distance }} meters
+                <br>
+                {% if discipline.time_limit %}
+                    <strong>Time Limit:</strong> {{ discipline.time_limit }}
+                {% else %}
+                    <strong>Time Limit:</strong> No time limit
+                {% endif %}
+                <br>
+                <strong>Order:</strong> {{ discipline.order }}
+            </div>  
+                {% empty %}
+                <p>No disciplines available for this race</p>
+                {% endfor %}
+                 
+    </div>
+    <hr>
     <a href="{% url 'delete_race' race.id %}">Delete</a>
     <a href="{% url 'update_race' race.id %}">Update</a>
 
