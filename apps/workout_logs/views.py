@@ -2,7 +2,7 @@ from django.shortcuts import render , redirect , get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Workout, Race, Goal
 from .forms import WorkoutForm, RaceForm, GoalForm
-
+from django.urls import reverse
 from datetime import datetime
 
 def home(request):
@@ -56,12 +56,8 @@ def update_workout(request, workout_id):
         form = WorkoutForm(instance=workout)
     return render(request, 'workout_logs/add_workout.html', {'form': form})
 
-def delete_workout(request, workout_id):
-    workout = get_object_or_404(Workout, id=workout_id)
-    if request.method == "POST":
-        workout.delete()
-        return redirect('workout_list')  # Redirect to the workout list after delete
-    return render(request,'workout_logs/delete_workout.html',{'workout': workout})
+def delete_workout(request, id):
+    return delete_object(request, Workout, id, 'workout_list')
 
 def detail_workout(request,workout_id):
     workout = get_object_or_404(Workout, id=workout_id)
@@ -101,12 +97,8 @@ def add_race(request):
         form = RaceForm()
     return render(request, 'workout_logs/add_race.html', {'form': form})
 
-def delete_race(request, race_id):
-    race = get_object_or_404(Race, id=race_id)
-    if request.method ==  'POST':
-        race.delete()
-        return redirect('races')
-    return render(request, 'workout_logs/delete_race.html', {'race': race})
+def delete_race(request, id):
+    return delete_object(request, Race, id, 'races')
 
 
 def update_race(request, race_id):
@@ -160,11 +152,7 @@ def create_goal(request):
     return render(request, 'workout_logs/create_goal.html', {'form': form})
 
 def delete_goal(request, id):
-    goal = get_object_or_404(Goal, id=id)
-    if request.method == 'POST':
-        goal.delete()
-        return redirect('goals')
-    return render(request, 'workout_logs/delete_goal.html', {'goal': goal})
+    return delete_object(request, Goal, id, 'goals')
 
 def detail_goal(request, id):
     goal = get_object_or_404(Goal, id=id)
@@ -184,3 +172,21 @@ def update_goal(request, id):
         'form': form
         }
     return render(request, 'workout_logs/create_goal.html', context)
+
+
+
+
+
+
+def delete_object(request, model, id, redirect_url):
+    obj = get_object_or_404(model, id=id)
+
+    if request.method == 'POST':
+        obj.delete()
+        return redirect(redirect_url)
+    
+    context = {
+        'object': obj,
+        'reverse_url': reverse(redirect_url),
+    }
+    return render(request, 'workout_logs/generic_delete.html', context)
