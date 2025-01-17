@@ -14,4 +14,6 @@ urlpatterns = [
     path('races/<int:race_id>/',views.detail_race, name ='detail_race'),
     path('races/<int:race_id>/delete/', views.delete_race, name='delete_race'),
     path('races/<int:race_id>/update/', views.update_race, name='update_race'),
+
+    path('goals/create/', views.create_goal, name='create_race'),
 ]

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %} Goal - form {% endblock %} 
+
+{% block content %}
+    <h1>Create Goal </h1>
+        
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Render the form fields as paragraph tags -->
+        <button type="submit">Submit</button>
+    </form>
+
+    <a href="{% url 'workout_list' %}">Back to Workout List</a>
+    
+{% endblock %}
+
+
+    
+    
+

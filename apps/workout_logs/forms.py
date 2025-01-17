@@ -1,5 +1,5 @@
 from django import forms
-from .models import Workout, Race
+from .models import Workout, Race, Goal
 
 class WorkoutForm(forms.ModelForm):
     class Meta:
@@ -32,4 +32,17 @@ class RaceForm(forms.ModelForm):
         }
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date'}),  # Ensures the browser uses a date picker
+        }
+
+    
+#You have to create a form for disciplines
+
+class GoalForm(forms.ModelForm):
+    class Meta:
+        model = Goal
+        fields = ['goal_type', 'target_value', 'achieved', 'start_date', 'end_date', 'description']
+
+        widgets = {
+            'start_date': forms.DateInput(attrs={'type': 'date'}), 
+            'end_date': forms.DateInput(attrs={'type': 'date'}), # Ensures the browser uses a date picker
         }

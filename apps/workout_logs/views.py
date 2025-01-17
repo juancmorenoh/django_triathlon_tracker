@@ -1,7 +1,7 @@
 from django.shortcuts import render , redirect , get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Workout, Race
-from .forms import WorkoutForm, RaceForm
+from .forms import WorkoutForm, RaceForm, GoalForm
 
 from datetime import datetime
 
@@ -131,3 +131,18 @@ def detail_race(request, race_id):
     disciplines = race.disciplines.all() #related_name in the model= disciplines
     context={ 'race': race , 'disciplines': disciplines} 
     return render(request, 'workout_logs/detail_race.html', context)
+
+
+#CRUD Create, Read, Update, Delete for Goals
+
+def create_goal(request):
+    if request.method == 'POST':
+        form = GoalForm(request.POST)
+        if form.is_valid():
+            goal = form.save(commit=False)
+            goal.user = request.user
+            goal.save()
+            return redirect('workouts')
+    else:
+        form = GoalForm()
+    return render(request, 'workout_logs/create_goal.html', {'form': form})
