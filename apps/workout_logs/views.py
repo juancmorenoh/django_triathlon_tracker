@@ -169,3 +169,18 @@ def delete_goal(request, id):
 def detail_goal(request, id):
     goal = get_object_or_404(Goal, id=id)
     return render(request, 'workout_logs/detail_goal.html', {'goal': goal})
+
+def update_goal(request, id):
+    goal = get_object_or_404(Goal, id=id)
+    if request.method == 'POST':
+        form = GoalForm(request.POST, instance=goal)
+        if form.is_valid():
+            form.save()
+            return redirect('goals')
+    else:
+        form = GoalForm(instance=goal)
+    context = {
+        'goal': goal, 
+        'form': form
+        }
+    return render(request, 'workout_logs/create_goal.html', context)
