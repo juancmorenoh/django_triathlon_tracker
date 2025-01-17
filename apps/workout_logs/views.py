@@ -1,6 +1,6 @@
 from django.shortcuts import render , redirect , get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Workout, Race
+from .models import Workout, Race, Goal
 from .forms import WorkoutForm, RaceForm, GoalForm
 
 from datetime import datetime
@@ -134,6 +134,18 @@ def detail_race(request, race_id):
 
 
 #CRUD Create, Read, Update, Delete for Goals
+def goals(request):
+    user_goals = Goal.objects.filter(user=request.user)
+    achieved_goals = user_goals.filter(achieved=True)   
+    not_achieved_goals = user_goals.filter(achieved=False)
+
+    context = {
+        'goals': user_goals,
+        'achieved_goals': achieved_goals,
+        'not_achieved_goals': not_achieved_goals,
+    }
+    return render(request,'workout_logs/goals.html', context)
+
 
 def create_goal(request):
     if request.method == 'POST':

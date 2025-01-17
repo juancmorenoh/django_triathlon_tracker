@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %} Races {% endblock %}
+
+{% block content %}
+    <h1>Goal List</h1>
+    <h2>Welcome {{ user.username }}</h2>
+    <br>
+
+    <a href="{% url 'create_goal' %}">Create new Goal</a>
+
+    <h3>Goal to achive</h3>
+    {% for goal in not_achived_goals %}
+        <a href="#">
+            <div>
+                <p>Goal type : {{ goal.goal_type }}</p>
+                <p>Target : {{ goal.target_value }}</p>
+                <p>Description: {{ goal.description }}</p>
+            </div>
+        </a>
+    {% empty %}
+        <p>No goals set yet</p>
+    {% endfor %}
+    <br>
+    <h3>Achived goals</h3>
+    {% for goal in achived_goals %}
+        <a href="#">
+            <div>
+                <p>Goal type : {{ goal.goal_type }}</p>
+                <p>Target : {{ goal.target_value }}</p>
+                <p>Description: {{ goal.description }}</p>
+            </div>
+        </a>
+    {% empty %}
+        <p>No goals have been achieved yet</p>
+    {% endfor %}
+    
+{% endblock %}
