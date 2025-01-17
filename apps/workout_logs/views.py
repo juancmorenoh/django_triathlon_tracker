@@ -154,7 +154,7 @@ def create_goal(request):
             goal = form.save(commit=False)
             goal.user = request.user
             goal.save()
-            return redirect('workouts')
+            return redirect('goals')
     else:
         form = GoalForm()
     return render(request, 'workout_logs/create_goal.html', {'form': form})
@@ -165,3 +165,7 @@ def delete_goal(request, id):
         goal.delete()
         return redirect('goals')
     return render(request, 'workout_logs/delete_goal.html', {'goal': goal})
+
+def detail_goal(request, id):
+    goal = get_object_or_404(Goal, id=id)
+    return render(request, 'workout_logs/detail_goal.html', {'goal': goal})

@@ -10,9 +10,8 @@
     <a href="{% url 'create_goal' %}">Create new Goal</a>
 
     <h3>Goal to achive</h3>
-    {% for goal in not_achived_goals %}
-        <a href="{% url 'delete_goal' goal.id %}">Delete</a>
-        <a href="#">
+    {% for goal in not_achieved_goals %}
+        <a href="{% url 'detail_goal' goal.id %}">
             <div>
                 <p>Goal type : {{ goal.goal_type }}</p>
                 <p>Target : {{ goal.target_value }}</p>
@@ -24,9 +23,8 @@
     {% endfor %}
     <br>
     <h3>Achived goals</h3>
-    {% for goal in achived_goals %}
-        <a href="{% url 'delete_goal' goal.id %}">Delete</a>
-        <a href="#">
+    {% for goal in achieved_goals %}
+        <a href="{% url 'detail_goal' goal.id %}">
             <div>
                 <p>Goal type : {{ goal.goal_type }}</p>
                 <p>Target : {{ goal.target_value }}</p>
