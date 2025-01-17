@@ -11,6 +11,7 @@
 
     <h3>Goal to achive</h3>
     {% for goal in not_achived_goals %}
+        <a href="{% url 'delete_goal' goal.id %}">Delete</a>
         <a href="#">
             <div>
                 <p>Goal type : {{ goal.goal_type }}</p>
@@ -24,6 +25,7 @@
     <br>
     <h3>Achived goals</h3>
     {% for goal in achived_goals %}
+        <a href="{% url 'delete_goal' goal.id %}">Delete</a>
         <a href="#">
             <div>
                 <p>Goal type : {{ goal.goal_type }}</p>

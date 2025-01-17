@@ -158,3 +158,10 @@ def create_goal(request):
     else:
         form = GoalForm()
     return render(request, 'workout_logs/create_goal.html', {'form': form})
+
+def delete_goal(request, id):
+    goal = get_object_or_404(Goal, id=id)
+    if request.method == 'POST':
+        goal.delete()
+        return redirect('goals')
+    return render(request, 'workout_logs/delete_goal.html', {'goal': goal})

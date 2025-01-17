@@ -17,5 +17,7 @@ urlpatterns = [
 
     path('goals/', views.goals, name='goals'),
     path('goals/create/', views.create_goal, name='create_goal'),
+    path('goals/create/', views.create_goal, name='create_goal'),
+    path('goals/<int:goal_id>/delete/', views.delete_goal, name='delete_goal'),
     
 ]
