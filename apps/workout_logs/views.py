@@ -1,9 +1,10 @@
 from django.shortcuts import render , redirect , get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Workout, Race, Goal
+from .models import Workout, Race, Goal, Discipline
 from .forms import WorkoutForm, RaceForm, GoalForm
 from django.urls import reverse
 from datetime import datetime
+from django.forms import inlineformset_factory
 
 def home(request):
     return render(request,'workout_logs/homepage.html')
@@ -86,16 +87,32 @@ def races(request):
 
 
 def add_race(request):
+    DisciplineFormSet = inlineformset_factory(
+    Race,
+    Discipline,
+    fields = ['name','distance','time_limit'],
+    extra = 3
+)
     if request.method ==  'POST':
-        form = RaceForm(request.POST)
-        if form.is_valid():
-            race = form.save(commit=False)  # Do not save to the database yet
+        race_form = RaceForm(request.POST)
+        discipline_form_set = DisciplineFormSet(request.POST)
+        if race_form.is_valid() and discipline_form_set.is_valid():
+            race = race_form.save(commit=False)  # Do not save to the database yet
             race.user = request.user 
             race.save()
+            disciplines = discipline_form_set.save(commit=False)
+            for discipline in disciplines:
+                discipline.race = race
+                discipline.save()
             return redirect('races')
     else:
-        form = RaceForm()
-    return render(request, 'workout_logs/add_race.html', {'form': form})
+        race_form = RaceForm()
+        discipline_form_set = DisciplineFormSet()
+    context = {
+        'race_form' : race_form,
+        'discipline_form_set': discipline_form_set
+    }
+    return render(request, 'workout_logs/add_race.html', context)
 
 def delete_race(request, id):
     return delete_object(request, Race, id, 'races')
@@ -190,3 +207,5 @@ def delete_object(request, model, id, redirect_url):
         'reverse_url': reverse(redirect_url),
     }
     return render(request, 'workout_logs/generic_delete.html', context)
+
+

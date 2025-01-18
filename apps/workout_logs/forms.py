@@ -1,5 +1,6 @@
 from django import forms
-from .models import Workout, Race, Goal
+from .models import Workout, Race, Goal, Discipline
+from django.forms import inlineformset_factory
 
 class WorkoutForm(forms.ModelForm):
     class Meta:
@@ -34,7 +35,17 @@ class RaceForm(forms.ModelForm):
             'date': forms.DateInput(attrs={'type': 'date'}),  # Ensures the browser uses a date picker
         }
 
-    
+class DisciplineForm(forms.ModelForm):
+    class Meta:
+        model = Discipline
+        fields = ['name','distance','time_limit']
+        labels = {
+            'name': 'Discipline',
+            'distance': 'Distance (in meters)',
+            'time_limit': 'Time limit',
+        }
+         
+
 #You have to create a form for disciplines
 
 class GoalForm(forms.ModelForm):
