@@ -4,8 +4,9 @@
 
 {% block content %}
     
-    {% if form.instance.pk %}
+    {% if race_form.instance.pk %}
         <h1>Update the race</h1>
+
     {% else %}
         <h1>Create a new race</h1>
     {% endif %}
@@ -13,9 +14,24 @@
     <form method="POST">
         {% csrf_token %}
         {{ race_form.as_p }}
-        <div class="js-subform-discipline">
-            {{ discipline_form_set }}
-        </div>
+        
+        <div class="subform-grid">
+            {{ formset.management_form }}
+            {% for form in formset %}
+                <div class="js-subform-discipline subform-discipline" onclick="showDisciplineForm(this)">
+                    <div class="form-placeholder">
+                        <!-- This is the white square placeholder. -->
+                        <p>Add discipline</p>
+                    </div>
+                    <div class="actual-form">
+                        {{ form.as_p }}
+                    </div>
+                    
+                </div>
+            {% endfor %}
+        </div>    
+        
+        
         
         <button type="submit">Submit</button>
     </form>

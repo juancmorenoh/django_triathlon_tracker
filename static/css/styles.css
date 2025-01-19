@@ -149,6 +149,35 @@ a:hover {
     object-fit: cover;
 }
 
+
+.subform-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.subform-discipline{
+
+    width: 300px;
+    height: 300px;
+    background-color: white;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+
+.actual-form{
+    display:none;
+}
+
+.subform-discipline.active .actual-form {
+    display: block;
+}
+
+.subform-discipline.active .form-placeholder{
+    display:none;
+}
 /* Footer Styles */
 footer {
     background-color: #333;

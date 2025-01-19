@@ -86,31 +86,39 @@ def races(request):
     return render(request,'workout_logs/races.html', context)
 
 
+################################
+#FIX THIS!!!!!!!! discipline_form evaluetes to FALSE, always??
+################################
 def add_race(request):
     DisciplineFormSet = inlineformset_factory(
     Race,
     Discipline,
-    fields = ['name','distance','time_limit'],
+    fields = ['name','distance','time_limit', 'order'],
     extra = 3
-)
+    )
+    
     if request.method ==  'POST':
         race_form = RaceForm(request.POST)
-        discipline_form_set = DisciplineFormSet(request.POST)
-        if race_form.is_valid() and discipline_form_set.is_valid():
+        formset = DisciplineFormSet(request.POST)
+        
+        if race_form.is_valid() and formset.is_valid():
+            print("Hello")
             race = race_form.save(commit=False)  # Do not save to the database yet
             race.user = request.user 
             race.save()
-            disciplines = discipline_form_set.save(commit=False)
+            disciplines = formset.save(commit=False)
+            
             for discipline in disciplines:
                 discipline.race = race
                 discipline.save()
             return redirect('races')
     else:
         race_form = RaceForm()
-        discipline_form_set = DisciplineFormSet()
+        formset = DisciplineFormSet()
+
     context = {
         'race_form' : race_form,
-        'discipline_form_set': discipline_form_set
+        'formset': formset
     }
     return render(request, 'workout_logs/add_race.html', context)
 
@@ -120,17 +128,37 @@ def delete_race(request, id):
 
 def update_race(request, race_id):
     race = get_object_or_404(Race, id=race_id)
+
+    disciplines_count = race.disciplines.count()
+    extra_forms = max(0, 3 - disciplines_count)
+
+    DisciplineFormSet = inlineformset_factory(
+        Race,
+        Discipline,
+        fields=['name', 'distance', 'time_limit', 'order'],
+        extra=extra_forms
+    )
+
     if request.method ==  'POST':
-        form = RaceForm(request.POST, instance=race)
-        if form.is_valid():
-            form.save()
+        race_form = RaceForm(request.POST, instance=race)
+        formset = DisciplineFormSet(request.POST, instance=race)
+
+        if race_form.is_valid() and formset.is_valid():
+            race = race_form.save()
+            disciplines = formset.save(commit=False)
+            for discipline in disciplines:
+                discipline.race = race
+                discipline.save()
+
             return redirect('races')
     else:
-        form = RaceForm(instance=race)
+        race_form = RaceForm(instance=race)
+        formset = DisciplineFormSet(instance=race)
 
     context={
-        'race': race,
-        'form': form,
+        
+        'race_form': race_form,
+        'formset': formset,
     }
     return render(request, 'workout_logs/add_race.html', context)
 

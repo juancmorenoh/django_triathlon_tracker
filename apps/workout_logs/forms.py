@@ -39,12 +39,6 @@ class DisciplineForm(forms.ModelForm):
     class Meta:
         model = Discipline
         fields = ['name','distance','time_limit']
-        labels = {
-            'name': 'Discipline',
-            'distance': 'Distance (in meters)',
-            'time_limit': 'Time limit',
-        }
-         
 
 #You have to create a form for disciplines
 
