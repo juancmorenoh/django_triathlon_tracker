@@ -7,7 +7,7 @@
     <h2>Welcome {{ user.username }}</h2>
     <br>
 
-    <a href="{% url 'create_goal' %}">Create new Goal</a>
+    <a href="{% url 'add_goal' %}">Create new Goal</a>
 
     <h3>Goal to achive</h3>
     {% for goal in not_achieved_goals %}

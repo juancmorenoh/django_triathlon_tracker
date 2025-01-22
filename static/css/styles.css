@@ -7,16 +7,18 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #fff7e6; 
-    color: #333;
-    padding: 0;
-    margin: 0;
+    background-color: #212529; 
+    color: #F8F9FA;
+    line-height: 1.6;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
+
 
 /* Header Styles */
 header {
-    background-color: #ff7b54; 
+    background-color: #DEE2E6; 
     padding: 1rem 0;
 }
 
@@ -28,16 +30,26 @@ header {
 }
 
 .logo a {
-    font-size: 1.5rem;
+    letter-spacing: .1rem;
+    font-size: 1.75rem;
     font-weight: bold;
-    text-decoration: none;
-    color: #fff;
+    text-decoration: none;  
+    color: #212529;
+    margin-left: 1rem;
+}
+
+.logo a:hover , 
+.nav-logout-btn:hover , 
+.nav-list a:hover ,
+.user-actions a:hover{
+    color: #ef233c;
 }
 
 .nav-list {
     display: flex;
     list-style: none;
-    gap: 1.5rem; 
+    font-size: 1.1rem;
+    gap: 3rem; 
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -45,8 +57,8 @@ header {
 
 .nav-list a {
     text-decoration: none;
-    color: #fff;
-    font-size: 1rem;
+    color: #212529;
+    font-weight:300;
 }
 
 .user-actions {
@@ -57,46 +69,169 @@ header {
 
 .user-actions a{
     text-decoration: none;
-    color: #fff;
+    color: #212529;
+    margin-right: 2rem;
 }
 
 .nav-logout-btn {
-    color: #fff;
+    color: #212529;
     cursor: pointer;
     background: none;
     border: none;
     font-weight: bold;
     font-size: 1rem;
+    margin-right: 2rem;
 }
 
-.nav-logout-btn:hover {
-    color: #ff6f00;
-}
 
-/* Main Section Styles */
+/* Main Section Styles & General tags*/
 main {
-    padding: 30px 15px;
-    max-width: 1000px;
-    margin: 0 auto;
+    max-width: 1300px;
+    margin: 1rem auto;
+    flex: 1;
+    
 }
 
 h1 {
     font-size: 2rem;
-    margin-bottom: 15px;
-    color: #ff7b54; /* Coral */
+    color: #ef233c; 
+    margin-bottom: 1.1rem;
+}
+
+h2{
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #DEE2E6;
 }
 
 p {
     font-size: 1.1rem;
-    color: #555;
-    line-height: 1.6;
+    color: #ffffff;
 }
 
+/* Link Styles */
+a {
+    text-decoration: none;
+    color: #ef233c; 
+    transition: color 0.3s ease;
+}
 
+a:hover {
+    color: #DEE2E6;
+}
 
+/* Homepage styles */
+.home-section{
+    text-align: center;
+    margin: 3rem auto;
+    max-width: 50%;
+}
+
+.home-section span{
+    font-weight: bold;
+    font-style: italic;
+    color: #CED4DA;
+}
+
+.cta-container{
+    display: flex;
+    justify-content: center;
+    gap: 5rem;
+    margin-top:3rem;
+}
+
+.cta-container a{
+    background-color: #ef233c;
+    color: #fff;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+}
+
+/* Form Login-Register*/
+.form-container{
+    text-align: center;
+}
+
+.login-form, .registration-form {
+    background-color: #CED4DA; 
+    padding: 1rem 3rem;
+    border-radius: 8px;
+    max-width: 400px;
+    box-shadow: 2px 2px 5px #ef233c;
+}
+
+form label{
+    color: #212529;
+    font-weight: bold;
+    display: block;
+    margin-top: 0.8rem;
+    text-align: left;
+}
+
+form input{
+    background-color: #2a2e36;
+    color: #fff;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+form input:focus {
+    outline: none;
+    border: 1px solid #ef233c;
+}
+
+.help-text {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: #6c757d;
+    text-align: left;
+}
+
+/* Error messages */
+.login-form .errorlist,
+.registration-form .errorlist {
+    color: #ef233c;
+    font-size: 12px;
+    margin-top: 5px;
+    text-align: left;
+}
+
+/* Form button */
+.button-log-form{
+    margin-top: 1rem;
+    background-color: #ef233c;
+    color: #fff;
+    font-weight: bold;
+    padding: 0.6rem 1.3rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+.button-log-form:hover{
+    background-color: #212529;
+}
+
+.form-footer{
+    margin-top: 1rem;
+}
+
+.italic-text{
+    font-style: italic;
+}
+
+/*Logout page*/
+.logout-message h2 {
+    color: #DEE2E6;
+    font-weight: bold;
+    margin: 5rem auto; 
+}
 /* =================================================================
  * SECTIONS
  * ========================================================================== */
+/*
 .races-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -121,38 +256,30 @@ p {
 }
 
 
-/* Link Styles */
-a {
-    text-decoration: none;
-    color: #ffa41b; /* Matches button orange */
-    transition: color 0.3s ease;
-}
-
-a:hover {
-    color: #ff6f00; /* Darker orange */
-}
 
 
-.profile-container {
-    text-align: center; /* Centers all text */
-    margin-bottom: 20px; /* Adds space below the content */
+*/
+
+/* .profile-container {
+    text-align: center; 
+    margin-bottom: 20px; 
 }
 
 .profile-img-container {
-    margin-top: 15px;  /* Adds space between the welcome text and the image */
+    margin-top: 15px; 
 }
 
 .profile-img-container img {
     width: 100px;
     height: 100px;
-    border-radius: 50%; /* Makes the image round */
+    border-radius: 50%; 
     object-fit: cover;
 }
 
 
 .subform-grid{
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 .subform-discipline{
 
@@ -177,16 +304,18 @@ a:hover {
 
 .subform-discipline.active .form-placeholder{
     display:none;
-}
+} 
+*/
+
 /* Footer Styles */
 footer {
-    background-color: #333;
-    color: white;
+    background-color: #343A40;
     text-align: center;
-    padding: 15px 0;
-    position: fixed; 
-    bottom: 0; 
     width: 100%;
+}
+footer p{
+    color: #CED4DA;
+    padding: 2rem 0rem;
 }
 
 /* Responsive Styles */

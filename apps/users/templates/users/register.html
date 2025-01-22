@@ -3,16 +3,26 @@
 {% block title %} Register {% endblock %}
 
 {% block content %}
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-    </form>
+    <div class="form-container">
+        <h2>Registration Form</h2>
+        <form method="POST" class="registration-form">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            {% for field in form %}        
+                <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                {{ field }}
+                {% if field.help_text %}
+                    <small class="help-text">{{ field.help_text }}</small>
+                {% endif %}
+                {{ field.errors }}
+            {% endfor %}  
+            <button type="submit" class="button-log-form">Register</button>
+        </form>
 
-    <p>Already have an account?</p> 
-    <a href="{% url 'login' %}">Log in</a>
-    <br>
-    <a href="{% url 'workout_list' %}">Back to Workout List</a>
-
-    
+        <div class="form-footer">
+            <span class="italic-text">Already have an account?</span>
+            <a href="{% url 'login' %}">Log in</a>
+        </div>
+        
+    </div>
 {% endblock %}

@@ -14,7 +14,7 @@ def workout_list(request):
     q = request.GET.get('q') # q in quotes is whatever is passed in the URL. If there's no q, it will be None.
     workouts = Workout.objects.filter(user = request.user)
 
-    if q:
+    if q:           
         if q.isdigit(): 
             q = int(q)
             workouts = Workout.objects.filter(distance_m__icontains=q)
@@ -33,6 +33,7 @@ def workout_list(request):
     } 
     return render(request, 'workout_logs/workout_list.html', context)
 
+@login_required
 def add_workout(request):
     if request.method ==  'POST':
         form = WorkoutForm(request.POST)
@@ -45,6 +46,7 @@ def add_workout(request):
         form = WorkoutForm()
     return render(request, 'workout_logs/add_workout.html', {'form': form})
 
+@login_required
 def update_workout(request, workout_id):
     workout = get_object_or_404(Workout, id=workout_id)
     if request.method == "POST":
@@ -57,9 +59,11 @@ def update_workout(request, workout_id):
         form = WorkoutForm(instance=workout)
     return render(request, 'workout_logs/add_workout.html', {'form': form})
 
+@login_required
 def delete_workout(request, id):
     return delete_object(request, Workout, id, 'workout_list')
 
+@login_required
 def detail_workout(request,workout_id):
     workout = get_object_or_404(Workout, id=workout_id)
     return render(request,'workout_logs/detail_workout.html',{'workout': workout})
@@ -184,7 +188,7 @@ def goals(request):
     return render(request,'workout_logs/goals.html', context)
 
 
-def create_goal(request):
+def add_goal(request):
     if request.method == 'POST':
         form = GoalForm(request.POST)
         if form.is_valid():
@@ -194,7 +198,7 @@ def create_goal(request):
             return redirect('goals')
     else:
         form = GoalForm()
-    return render(request, 'workout_logs/create_goal.html', {'form': form})
+    return render(request, 'workout_logs/add_goal.html', {'form': form})
 
 def delete_goal(request, id):
     return delete_object(request, Goal, id, 'goals')
