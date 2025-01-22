@@ -10,10 +10,12 @@
         <p>Your journey to a stronger, faster, and better you starts here.</p>
         <p>Ready to track your progress across running, swimming, and cycling?</p>
 
+        {% if not user.is_authenticated %}
         <div class="cta-container">
             <a href="{% url 'register' %}">Sign Up & Start Training</a>
             <a href="{% url 'login' %}">Already a Member? Log In</a>
         </div>
+        {% endif %}
     </div>
 </section>
 

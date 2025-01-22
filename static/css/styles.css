@@ -228,6 +228,115 @@ form input:focus {
     font-weight: bold;
     margin: 5rem auto; 
 }
+
+.intro-page{
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/*Profile page styles*/
+.profile-img-container {
+    margin-top: 15px; 
+}
+
+.profile-img-container img {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%; 
+    object-fit: cover;
+}
+
+.profile-details {
+    margin-bottom: 1rem;
+}
+
+.profile-up-del-link{
+    display: inline-flex;
+    gap: 3rem;
+    margin-bottom: 1rem;
+}
+/*Statistic activity Left block */
+
+.profile-sport-button {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    background-color: #CED4DA;
+    border-radius: 0.3rem;
+    overflow: hidden;
+    font-weight: bold;
+    max-width: fit-content;
+}
+.profile-sport-button a{
+    padding: 0.5rem;
+    color: #212529;
+    transition: background-color 0.3s ease, color 0.5 ease;
+}
+
+.profile-sport-button a:hover {
+    background-color: #2a2e36;
+    color: #CED4DA;
+}
+.selected{
+    background-color: #2a2e36;
+    color: #CED4DA!important;
+}
+
+.selected:hover {
+    background-color: #CED4DA;
+}
+
+.statistics-container{
+    margin-top: 1rem;
+    background-color: #343A40;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin-bottom: 3rem;
+}
+.activity-container h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #CED4DA;
+}
+
+.stat-container {
+    margin-bottom: 1.1rem;
+    padding: 1rem;
+    border: 1px solid #ef233c;
+    border-radius: 0.5rem;
+    background-color: #CED4DA;
+}
+
+.stat-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #343A40; 
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #ef233c;
+    padding-bottom: 5px;
+}
+
+.stat-container p {
+    margin: 5px 0;
+    font-size: 1rem;
+    color: #343A40; /* Subtle gray for labels */
+}
+
+.stat-container p span {
+    font-weight: bold;
+    color: #212529; /* Make data values stand out */
+}
+
+.dropdown{
+    margin-top: 0.5rem;
+    background-color: #CED4DA;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
 /* =================================================================
  * SECTIONS
  * ========================================================================== */
@@ -260,21 +369,9 @@ form input:focus {
 
 */
 
-/* .profile-container {
-    text-align: center; 
-    margin-bottom: 20px; 
-}
+/* 
 
-.profile-img-container {
-    margin-top: 15px; 
-}
 
-.profile-img-container img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%; 
-    object-fit: cover;
-}
 
 
 .subform-grid{

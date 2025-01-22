@@ -1,16 +1,20 @@
 {% extends 'base.html' %}
 
-{% block title %} Home - Workout Tracker {% endblock %}
+{% block title %} Workout List {% endblock %}
 
 {% block content %}
-    <h1>Workout List</h1>
-    <h2>Welcome, {{ user.username }}!</h2>
-    
-    <div> 
-        <h3>Welcome to your workout tracker! Here you can add, view, and edit your workouts.</h3>
+
+    <div class="intro-page">
+        <h1>Workout List</h1>
+        <p>Here you can <span class="italic-text">Add, View, Edit</span> and <span class="italic-text">Delete</span> your workouts.</p>
+    </div>
+
+    <div class="cta-container"> 
         <a href="{% url 'add_workout' %}" >Add workout +</a>
     </div>
-    <h5>There are {{ workouts_count }} workouts</h5>
+    
+
+    <p>There are {{ workouts_count }} workouts</p>
 
     <a href="{% url 'workout_list' %}">All</a>
 

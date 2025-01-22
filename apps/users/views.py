@@ -50,54 +50,50 @@ def profile(request):
     current_date = datetime.now()
     current_year = current_date.year
     four_weeks_ago = current_date - timedelta(weeks=4)
-
-    activity_types = ['run', 'ride', 'swim']
-    stats = {}
-
     range_selected_years = range(current_year - 5, current_year + 1)
-    
-    for activity in activity_types:
-    
-        selected_year = int(request.GET.get(f'year_{activity}', current_year))
-        workouts = Workout.objects.filter(user=user, activity_type=activity)
 
-        last_4_weeks = workouts.filter(date__gte=four_weeks_ago) #any date >= 4weeks ago
-        last_4_weeks_count = last_4_weeks.count()
-        avg_distance_last_4_weeks = last_4_weeks.aggregate(Avg('distance_m'))['distance_m__avg'] or 0#if avd distance is None, set it to 0
-        avg_time_last_4_weeks = last_4_weeks.aggregate(Avg('duration'))['duration__avg'] or 0
+    activity_type = request.GET.get('activity_type', 'run')
 
-        longest_activity = workouts.aggregate(Max('distance_m'), Max('duration'))
-        longest_distance = longest_activity['distance_m__max'] or 0
-        longest_time = longest_activity['duration__max'] or 0
+    selected_year = int(request.GET.get('year', current_year))
+    workouts = Workout.objects.filter(user=user, activity_type=activity_type)
 
-        total_distance = workouts.aggregate(Sum('distance_m'))['distance_m__sum'] or 0
-        total_time = workouts.aggregate(Sum('duration'))['duration__sum'] or 0
-        total_activities = workouts.count()
+    last_4_weeks = workouts.filter(date__gte=four_weeks_ago) #any date >= 4weeks ago
+    last_4_weeks_count = last_4_weeks.count()
+    avg_distance_last_4_weeks = last_4_weeks.aggregate(Avg('distance_m'))['distance_m__avg'] or 0#if avd distance is None, set it to 0
+    avg_time_last_4_weeks = last_4_weeks.aggregate(Avg('duration'))['duration__avg'] or 0
 
-        yearly_workouts = workouts.filter(date__year=selected_year)
-        yearly_count = yearly_workouts.count()
-        yearly_distance = yearly_workouts.aggregate(Sum('distance_m'))['distance_m__sum'] or 0
-        yearly_time = yearly_workouts.aggregate(Sum('duration'))['duration__sum'] or 0
+    longest_activity = workouts.aggregate(Max('distance_m'), Max('duration'))
+    longest_distance = longest_activity['distance_m__max'] or 0
+    longest_time = longest_activity['duration__max'] or 0
 
-        stats[activity] = {
-            'last_4_weeks_count': last_4_weeks_count,
-            'avg_distance_last_4_weeks': avg_distance_last_4_weeks / 1000, 
-            'avg_time_last_4_weeks': avg_time_last_4_weeks,
-            'longest_distance': longest_distance / 1000, 
-            'longest_time': longest_time,
-            'total_distance': total_distance / 1000,
-            'total_time': total_time,
-            'total_activities': total_activities,
+    total_distance = workouts.aggregate(Sum('distance_m'))['distance_m__sum'] or 0
+    total_time = workouts.aggregate(Sum('duration'))['duration__sum'] or 0
+    total_activities = workouts.count()
 
-            'yearly_count': yearly_count,
-            'yearly_distance': yearly_distance / 1000, 
-            'yearly_time': yearly_time,
-            'selected_year': selected_year
-        }
+    yearly_workouts = workouts.filter(date__year=selected_year)
+    yearly_count = yearly_workouts.count()
+    yearly_distance = yearly_workouts.aggregate(total_distance=Sum('distance_m'))['total_distance'] or 0
+    yearly_time = yearly_workouts.aggregate(total_time=Sum('duration'))['total_time'] or 0
 
     context = {
-        'stats': stats,
+        'last_4_weeks_count': last_4_weeks_count,
+        'avg_distance_last_4_weeks': avg_distance_last_4_weeks / 1000, 
+        'avg_time_last_4_weeks': avg_time_last_4_weeks,
+
+        'longest_distance': longest_distance / 1000, 
+        'longest_time': longest_time,
+        'total_distance': total_distance / 1000,
+        'total_time': total_time,
+        'total_activities': total_activities,
+
+        'yearly_count': yearly_count,
+        'yearly_distance': yearly_distance / 1000, 
+        'yearly_time': yearly_time,
+        'selected_year': selected_year,
         'range_selected_years': range_selected_years,
+        'activity_type': activity_type,
+        
     }
 
+    
     return render(request, 'users/profile.html', context)

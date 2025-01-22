@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 
-{% block title %} Races {% endblock %}
+{% block title %} Goals List {% endblock %}
 
 {% block content %}
-    <h1>Goal List</h1>
-    <h2>Welcome {{ user.username }}</h2>
-    <br>
+    
+    <div class="intro-page">
+        <h1>Goal List</h1>
+        <p>Here you can <span class="italic-text">Add, View, Edit</span> and <span class="italic-text">Delete</span> your goals.</p>
+    </div>
 
     <a href="{% url 'add_goal' %}">Create new Goal</a>
 
@@ -35,4 +37,7 @@
         <p>No goals have been achieved yet</p>
     {% endfor %}
     
+    <div class="cta-container"> 
+        <a href="{% url 'add_goal' %}" >Add goal +</a>
+    </div>
 {% endblock %}

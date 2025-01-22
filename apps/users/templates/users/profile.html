@@ -3,62 +3,77 @@
 {% block title %} Profile {% endblock %}
 
 {% block content %}   
-    <h1>Profile</h1>
-    <div class="profile-img-container">
-        <img src="{{ user.profile.image.url }}" alt="Mypic">
-    </div>
-    <a href="{% url 'profile_update' %}">Update</a>
 
-    <div class="statistics-container">
+    <div class="intro-page">
+        <h1>Profile</h1>
+        <div class="profile-img-container">
+            <img src="{{ user.profile.image.url }}" alt="Mypic">
+        </div>
         
+        <div class="profile-up-del-link">
+            <a href="{% url 'profile_update' %}">Update</a>
+            <a href="{% url 'profile_update' %}">Delete</a>
+        </div>
+        
+        <div class="profile-details">
+            <p>Welcome <span class="italic-text">{{ user.username }}</span></p>
+            <p>Email: <span class="italic-text">{{ user.email}}</span></p>
+        </div>
+        <p>Here you can <span class="italic-text">View, Update</span> and <span class="italic-text">Delete</span> your profile.</p>
+    </div>
     
-        {% for activity, data in stats.items %}
-        <div class="activity-container">
-            <h2>{{ activity|title }} Statistics</h2>
+    <div class="wrap-stat">
+        <div class="profile-sport-button">
+            <a href="?activity_type=run" class="{% if activity_type == 'run' %}selected{% endif %}">Run</a>
+            <a href="?activity_type=ride" class="{% if activity_type == 'ride' %}selected{% endif %}">Ride</a>
+            <a href="?activity_type=swim" class="{% if activity_type == 'swim' %}selected{% endif %}">Swim</a>
+        </div>
     
-            <div class="last-4-weeks">
-                <h3>Last 4 Weeks</h3>
-                <p>Activities: {{ data.last_4_weeks_count }}</p>
-                <p>Avg Distance: {{ data.avg_distance_last_4_weeks|floatformat:2 }} km</p>
-                <p>Avg Time: {{ data.avg_time_last_4_weeks }}</p>
-            </div>
+        <div class="statistics-container">
+            <div class="activity-container">
+                <h2>Statistics for {{ activity_type|title }}</h2>
+        
+                <div class="stat-container">
+                    <p class="stat-title">Last 4 Weeks</p>
+                    <p>Activities: <span>{{ last_4_weeks_count }}</span></p>
+                    <p>Avg Distance: <span>{{ avg_distance_last_4_weeks }}km </span></p>
+                    <p>Avg Time: <span>{{ avg_time_last_4_weeks }}</span></p>
+                </div>
+                
+                <div class="stat-container">
+                    <p class="stat-title">Longest Activity</p>
+                    <p>Longest Distance: <span>{{ longest_distance }} km</span></p>
+                    <p>Longest Time: <span>{{ longest_time }}</span></p>
+                </div>
+        
+                <div class="stat-container">     
+                    <p class="stat-title">Yearly Statistics</p>
+                    <form method="get">
+                        
+                        <input type="hidden" name="activity_type" value="{{ request.GET.activity_type }}">
+
+                        <select name="year" onchange="this.form.submit()" class="dropdown">
+                            {% for year in range_selected_years %}
+                                <option value="{{ year }}" {% if year == selected_year %}selected{% endif %}>
+                                    {{ year }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                    <p>Activities: <span>{{ yearly_count }}</span></p>
+                    <p>Total Distance: <span>{{ yearly_distance }} km</span></p>
+                    <p>Total Time: <span>{{ yearly_time }}</span></p>
+                </div>
             
-            <div class="longest">
-                <h3>Longest Activity</h3>
-                <p>Longest Distance: {{ data.longest_distance|floatformat:2 }} km</p>
-                <p>Longest Time: {{ data.longest_time }}</p>
-            </div>
     
-            <div class="yearly">
-                
-                
-                <h3>Yearly Statistics</h3>
-                <form method="get">
-                    {% for key, value in request.GET.items %}
-                        <input type="hidden" name="{{ key }}" value="{{ value }}">
-                    {% endfor %}
-                    <label for="year_{{ activity }}">Select year for {{ activity }}:</label>
-                    <select id="year_{{ activity }}" name="year_{{ activity }}" onchange="this.form.submit()">
-                        {% for year in range_selected_years %}
-                            <option value="{{ year }}" {% if year == data.selected_year %}selected{% endif %}>
-                                {{ year }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                </form>
-                <p>Activities: {{ data.yearly_count }}</p>
-                <p>Total Distance: {{ data.yearly_distance|floatformat:2 }} km</p>
-                <p>Total Time: {{ data.yearly_time }}</p>
-            </div> 
-    
-            <div class="all-time">
-                <h3>All Time</h3>
-                <p>Total Activities: {{ data.total_activities }}</p>
-                <p>Total Distance: {{ data.total_distance|floatformat:2 }} km</p>
-                <p>Total Time: {{ data.total_time }}</p>
+                <div class="stat-container">
+                    <p class="stat-title">All Time</p>
+                    <p>Total Activities: <span>{{ total_activities }}</span></p>
+                    <p>Total Distance: <span>{{ total_distance }} km</span></p>
+                    <p>Total Time: <span>{{ total_time }}</span></p>
+                </div>
             </div>
         </div>
-        {% endfor %}
     </div>
     
 {% endblock %}

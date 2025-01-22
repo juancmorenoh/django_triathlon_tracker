@@ -1,55 +1,51 @@
 {% extends 'base.html' %}
 
-{% block title %} Races {% endblock %}
+{% block title %} Races List {% endblock %}
 
 {% block content %}
-    
-    <h1>All races</h1>
-    {% if user.is_authenticated %}
-    <h2>Welcome, {{ user.username }}!</h2>
-    <br>
-    {% endif %}
-    <div> 
-        <a href="{% url 'add_race' %}" >Create a new race</a>
-    </div>
-    <hr>
-    <div class="races-container">
-        <div>
-            <h5>Your upcoming races</h5>
-            <h6>Total: {{ upcoming_races_count }}</h6>
-            {% for race in upcoming_races %}
-            <a href="{% url 'detail_race' race.id %}">
-                <div>
-                    <p>Name: {{ race.race_name }}</p>
-                    <p>Location: {{ race.location }}</p>
-                    <p>Date: {{ race.date }}</p>
-                    <p>Goal time: {{ race.prediction_time }}</p>
-                </div>
-            </a>      
-            <hr>      
-            {% endfor %}
-        </div>
-        <div>
-            <h5>Your past races</h5>
-            <h6>Total: {{ past_races_count }}</h6>
-            {% for race in past_races %}
-            <a href="{% url 'detail_race' race.id %}">
-                <div>
-                    <p>Name: {{ race.race_name }}</p>
-                    <p>Location: {{ race.location }}</p>
-                    <p>Date: {{ race.date }}</p>
-                    <p>Final time: {{ race.final_time }}</p>
-                </div>
-                
-            </a>
-            <hr>
-            {% endfor %}
-        </div>
-    </div>
-    
-    
-    
+    <div class="page-containter">
 
+        <div class="intro-page">
+            <h1>All races</h1>
+            <p>Here you can <span class="italic-text">Add, View, Edit</span> and <span class="italic-text">Delete</span> your races.</p>
+        </div>
     
-    
+        <div class="cta-container"> 
+            <a href="{% url 'add_race' %}" >Add race +</a>
+        </div>
+        
+        <div class="races-container">
+            <div>
+                <h5>Your upcoming races</h5>
+                <h6>Total: {{ upcoming_races_count }}</h6>
+                {% for race in upcoming_races %}
+                <a href="{% url 'detail_race' race.id %}">
+                    <div>
+                        <p>Name: {{ race.race_name }}</p>
+                        <p>Location: {{ race.location }}</p>
+                        <p>Date: {{ race.date }}</p>
+                        <p>Goal time: {{ race.prediction_time }}</p>
+                    </div>
+                </a>      
+                <hr>      
+                {% endfor %}
+            </div>
+            <div>
+                <h5>Your past races</h5>
+                <h6>Total: {{ past_races_count }}</h6>
+                {% for race in past_races %}
+                <a href="{% url 'detail_race' race.id %}">
+                    <div>
+                        <p>Name: {{ race.race_name }}</p>
+                        <p>Location: {{ race.location }}</p>
+                        <p>Date: {{ race.date }}</p>
+                        <p>Final time: {{ race.final_time }}</p>
+                    </div>
+                    
+                </a>
+                <hr>
+                {% endfor %}
+            </div>
+        </div>
+    </div>   
 {% endblock %}
