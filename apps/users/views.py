@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from .forms import UserRegistrationForm, ProfileUpdateForm, UserUpdateForm
 from django.contrib.auth.decorators import login_required
 
-from apps.workout_logs.models import Workout
+from apps.workout_logs.models import Workout,Race, Discipline
 from datetime import timedelta, datetime
 from django.db.models import Avg, Max, Sum, Count
 from django.utils.timezone import localtime
@@ -49,6 +49,7 @@ def profile(request):
     user = request.user
     current_date = datetime.now()
     current_year = current_date.year
+    
     four_weeks_ago = current_date - timedelta(weeks=4)
     range_selected_years = range(current_year - 5, current_year + 1)
 
@@ -56,7 +57,20 @@ def profile(request):
 
     selected_year = int(request.GET.get('year', current_year))
     workouts = Workout.objects.filter(user=user, activity_type=activity_type)
+    next_race = Race.objects.filter(user=user, date__gte=current_date).order_by('date').first()
+    if next_race:
+        days_to_race = (next_race.date - current_date.date()).days
+        disciplines = next_race.disciplines.all() 
+    else:
+        days_to_race = None
+        disciplines = None
 
+    
+    past_race = Race.objects.filter(user=user, date__lt=current_date)
+    fastest_race = past_race.filter(final_time__isnull=False) .order_by('final_time') .first()
+    longest_race = past_race.annotate(total_distance=Sum('disciplines__distance')).order_by('-total_distance').first()
+
+    
     last_4_weeks = workouts.filter(date__gte=four_weeks_ago) #any date >= 4weeks ago
     last_4_weeks_count = last_4_weeks.count()
     avg_distance_last_4_weeks = last_4_weeks.aggregate(Avg('distance_m'))['distance_m__avg'] or 0#if avd distance is None, set it to 0
@@ -92,7 +106,12 @@ def profile(request):
         'selected_year': selected_year,
         'range_selected_years': range_selected_years,
         'activity_type': activity_type,
-        
+
+        'next_race': next_race,
+        'days_to_race': days_to_race,
+        'disciplines': disciplines,
+        'longest_race': longest_race,
+        'fastest_race': fastest_race,
     }
 
     

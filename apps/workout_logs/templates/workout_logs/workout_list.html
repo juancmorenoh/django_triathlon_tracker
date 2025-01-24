@@ -3,58 +3,60 @@
 {% block title %} Workout List {% endblock %}
 
 {% block content %}
-
-    <div class="intro-page">
-        <h1>Workout List</h1>
-        <p>Here you can <span class="italic-text">Add, View, Edit</span> and <span class="italic-text">Delete</span> your workouts.</p>
-    </div>
-
-    <div class="cta-container"> 
-        <a href="{% url 'add_workout' %}" >Add workout +</a>
+    <div class="wrap-main">
+        <div class="intro-page">
+            <h1>Workout List</h1>
+            <p>Here you can <span class="italic-text">Add, View, Edit</span> and <span class="italic-text">Delete</span> your workouts.</p>
+        </div>
+    
+        <div class="cta-container"> 
+            <a href="{% url 'add_workout' %}" >Add workout +</a>
+        </div>
+        
+    
+        <p>There are {{ workouts_count }} workouts</p>
+    
+        <a href="{% url 'workout_list' %}">All</a>
+    
+        <form method="GET" action="{% url 'workout_list' %}">
+            <label for="search-text">Filter by activity, distance or name</label>
+            <input type="text" id="search-text" name="q" placeholder="Type to filter...">
+            <button type="submit">Submit</button>
+        </form>
+        
+    
+        <div class="workout-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Date</th>
+                        <th>Distance</th>
+                        <th>Duration</th>
+                        <th>Name</th>
+                        <th>Intensity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for workout in workouts %}
+                        <tr>
+                            <td><a href="{% url 'detail_workout' workout.id %}">{{ workout.get_activity_type_display }}</a></td>
+                            <td>{{ workout.date }}</td>
+                            <td>{{ workout.distance_m }} m</td>
+                            <td>{{ workout.duration }}</td>
+                            <td>{{ workout.name }}</td>
+                            <td>{{ workout.intensity }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td>No workout found</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
     
-
-    <p>There are {{ workouts_count }} workouts</p>
-
-    <a href="{% url 'workout_list' %}">All</a>
-
-    <form method="GET" action="{% url 'workout_list' %}">
-        <label for="search-text">Filter by activity, distance or name</label>
-        <input type="text" id="search-text" name="q" placeholder="Type to filter...">
-        <button type="submit">Submit</button>
-    </form>
-    
-
-    <div class="workout-table">
-        <table>
-            <thead>
-                <tr>
-                    <th>Type</th>
-                    <th>Date</th>
-                    <th>Distance</th>
-                    <th>Duration</th>
-                    <th>Name</th>
-                    <th>Intensity</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for workout in workouts %}
-                    <tr>
-                        <td><a href="{% url 'detail_workout' workout.id %}">{{ workout.get_activity_type_display }}</a></td>
-                        <td>{{ workout.date }}</td>
-                        <td>{{ workout.distance_m }} m</td>
-                        <td>{{ workout.duration }}</td>
-                        <td>{{ workout.name }}</td>
-                        <td>{{ workout.intensity }}</td>
-                    </tr>
-                {% empty %}
-                    <tr>
-                        <td>No workout found</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
 
     
     

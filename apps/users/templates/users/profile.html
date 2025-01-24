@@ -3,78 +3,133 @@
 {% block title %} Profile {% endblock %}
 
 {% block content %}   
-
-    <div class="intro-page">
-        <h1>Profile</h1>
-        <div class="profile-img-container">
-            <img src="{{ user.profile.image.url }}" alt="Mypic">
-        </div>
-        
-        <div class="profile-up-del-link">
-            <a href="{% url 'profile_update' %}">Update</a>
-            <a href="{% url 'profile_update' %}">Delete</a>
-        </div>
-        
-        <div class="profile-details">
-            <p>Welcome <span class="italic-text">{{ user.username }}</span></p>
-            <p>Email: <span class="italic-text">{{ user.email}}</span></p>
-        </div>
-        <p>Here you can <span class="italic-text">View, Update</span> and <span class="italic-text">Delete</span> your profile.</p>
-    </div>
     
-    <div class="wrap-stat">
-        <div class="profile-sport-button">
-            <a href="?activity_type=run" class="{% if activity_type == 'run' %}selected{% endif %}">Run</a>
-            <a href="?activity_type=ride" class="{% if activity_type == 'ride' %}selected{% endif %}">Ride</a>
-            <a href="?activity_type=swim" class="{% if activity_type == 'swim' %}selected{% endif %}">Swim</a>
+        <div class="intro-page">
+            <h1>Profile</h1>
+            <div class="profile-img-container">
+                <img src="{{ user.profile.image.url }}" alt="Mypic">
+            </div>
+            
+            <div class="profile-up-del-link">
+                <a href="{% url 'profile_update' %}">Update</a>
+                <a href="{% url 'profile_update' %}">Delete</a>
+            </div>
+            
+            <div class="profile-details">
+                <p>Welcome <span class="italic-text">{{ user.username }}</span></p>
+                <p>Email: <span class="italic-text">{{ user.email}}</span></p>
+            </div>
+            <p>Here you can <span class="italic-text">View, Update</span> and <span class="italic-text">Delete</span> your profile.</p>
         </div>
-    
-        <div class="statistics-container">
-            <div class="activity-container">
-                <h2>Statistics for {{ activity_type|title }}</h2>
         
-                <div class="stat-container">
-                    <p class="stat-title">Last 4 Weeks</p>
-                    <p>Activities: <span>{{ last_4_weeks_count }}</span></p>
-                    <p>Avg Distance: <span>{{ avg_distance_last_4_weeks }}km </span></p>
-                    <p>Avg Time: <span>{{ avg_time_last_4_weeks }}</span></p>
-                </div>
-                
-                <div class="stat-container">
-                    <p class="stat-title">Longest Activity</p>
-                    <p>Longest Distance: <span>{{ longest_distance }} km</span></p>
-                    <p>Longest Time: <span>{{ longest_time }}</span></p>
-                </div>
-        
-                <div class="stat-container">     
-                    <p class="stat-title">Yearly Statistics</p>
-                    <form method="get">
-                        
-                        <input type="hidden" name="activity_type" value="{{ request.GET.activity_type }}">
-
-                        <select name="year" onchange="this.form.submit()" class="dropdown">
-                            {% for year in range_selected_years %}
-                                <option value="{{ year }}" {% if year == selected_year %}selected{% endif %}>
-                                    {{ year }}
-                                </option>
-                            {% endfor %}
-                        </select>
-                    </form>
-                    <p>Activities: <span>{{ yearly_count }}</span></p>
-                    <p>Total Distance: <span>{{ yearly_distance }} km</span></p>
-                    <p>Total Time: <span>{{ yearly_time }}</span></p>
+        <!--THIS WRAP SHOULD CONTAIN 3 DIVS-->
+        <div class="wrap-stat">
+            <div class="stats-item">
+                <div class="profile-sport-button">
+                    <a href="?activity_type=run" class="{% if activity_type == 'run' %}selected{% endif %}">Run</a>
+                    <a href="?activity_type=ride" class="{% if activity_type == 'ride' %}selected{% endif %}">Ride</a>
+                    <a href="?activity_type=swim" class="{% if activity_type == 'swim' %}selected{% endif %}">Swim</a>
                 </div>
             
-    
-                <div class="stat-container">
-                    <p class="stat-title">All Time</p>
-                    <p>Total Activities: <span>{{ total_activities }}</span></p>
-                    <p>Total Distance: <span>{{ total_distance }} km</span></p>
-                    <p>Total Time: <span>{{ total_time }}</span></p>
+                <div class="statistics-container">
+                    <div class="activity-container">
+                        <h2>Statistics for {{ activity_type|title }}</h2>
+                
+                        <div class="stat-container">
+                            <p class="stat-title">Last 4 Weeks</p>
+                            <p>Activities: <span>{{ last_4_weeks_count }}</span></p>
+                            <p>Avg Distance: <span>{{ avg_distance_last_4_weeks }}km </span></p>
+                            <p>Avg Time: <span>{{ avg_time_last_4_weeks }}</span></p>
+                        </div>
+                        
+                        <div class="stat-container">
+                            <p class="stat-title">Longest Activity</p>
+                            <p>Longest Distance: <span>{{ longest_distance }} km</span></p>
+                            <p>Longest Time: <span>{{ longest_time }}</span></p>
+                        </div>
+                
+                        <div class="stat-container">     
+                            <p class="stat-title">Yearly Statistics</p>
+                            <form method="get">
+                                
+                                <input type="hidden" name="activity_type" value="{{ request.GET.activity_type }}">
+        
+                                <select name="year" onchange="this.form.submit()" class="dropdown">
+                                    {% for year in range_selected_years %}
+                                        <option value="{{ year }}" {% if year == selected_year %}selected{% endif %}>
+                                            {{ year }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </form>
+                            <p>Activities: <span>{{ yearly_count }}</span></p>
+                            <p>Total Distance: <span>{{ yearly_distance }} km</span></p>
+                            <p>Total Time: <span>{{ yearly_time }}</span></p>
+                        </div>
+                    
+            
+                        <div class="stat-container">
+                            <p class="stat-title">All Time</p>
+                            <p>Total Activities: <span>{{ total_activities }}</span></p>
+                            <p>Total Distance: <span>{{ total_distance }} km</span></p>
+                            <p>Total Time: <span>{{ total_time }}</span></p>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div class="stats-item">
+                <h2>Upcoming Race</h2>
+                <div class="stat-container">
+                    
+                    {% if next_race %}
+                        <p class="stat-title">{{ next_race }}</p>
+                        <p>Date: <span>{{ next_race.date }}</span></p>
+                        <p>Location: <span>{{ next_race.location }}</span></p>
+                        {% if next_race.race_type %}
+                            <p>Race type: <span>{{ next_race.race_type }}</span></p>
+                        {% endif %}
+                        <p>Countdown: <span>{{ days_to_race }}</span> days to go!</p>
+      
+                        <div>
+                            <p>Disciplines:</p>
+                            {% for discipline in disciplines %}
+                            <div class="next-race-disciplines">
+                                <p><span>{{ discipline.name|title }}</span></p>
+                                <p>Distance: <span>{{ discipline.distance}}</span> m</p>
+                                
+                                <p>Time Limit: <span>{{ discipline.time_limit }}</span></p>
+                            </div>
+                                
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p>No upcoming races scheduled.</p>
+                    {% endif %}
+                </div>  
+                <h2>Longest Race</h2>
+                <div class="stat-container">
+                    
+                    {% if longest_race %}
+                        <p class="stat-title">{{ longest_race.race_name }}</p>
+                        <p> Total Distance: <span>{{ longest_race.total_distance }}</span> m</p>
+                    {% else %}
+                        <p>No past races.</p>
+                    {% endif %}
+                </div>
+                <h2>Fastest race</h2>
+                <div class="stat-container">
+                    
+                    {% if fastest_race %}
+                        <p class="stat-title">{{ fastest_race.race_name }}</p>
+                        <p>Time: <span>{{ fastest_race.final_time }}</span></p>       
+                    {% else %}
+                        <p>No past races</p>
+                    {% endif %}
+    
+                </div>
+            </div>     
         </div>
-    </div>
+    
     
 {% endblock %}
 

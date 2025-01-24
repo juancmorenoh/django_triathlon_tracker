@@ -231,7 +231,7 @@ form input:focus {
 
 .intro-page{
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
 }
 
 /*Profile page styles*/
@@ -255,18 +255,25 @@ form input:focus {
     gap: 3rem;
     margin-bottom: 1rem;
 }
-/*Statistic activity Left block */
-
-.profile-sport-button {
+/* General statistics containers */
+.wrap-stat{
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin: 0 auto;
+    width: 900px;
+    gap: 3rem;
+}
+
+
+
+/*Button options */
+.profile-sport-button {
+    overflow: hidden;
+    display: flex;
+    margin: 1rem auto;
     background-color: #CED4DA;
     border-radius: 0.3rem;
-    overflow: hidden;
     font-weight: bold;
     max-width: fit-content;
+    
 }
 .profile-sport-button a{
     padding: 0.5rem;
@@ -279,6 +286,7 @@ form input:focus {
     color: #CED4DA;
 }
 .selected{
+    
     background-color: #2a2e36;
     color: #CED4DA!important;
 }
@@ -287,18 +295,21 @@ form input:focus {
     background-color: #CED4DA;
 }
 
-.statistics-container{
+/* Content */
+.stats-item{
+    flex: 1;
+    text-align: center;
     margin-top: 1rem;
     background-color: #343A40;
     border-radius: 0.5rem;
     padding: 0.5rem;
     margin-bottom: 3rem;
 }
-.activity-container h2 {
+.stats-item h2 {
     text-align: center;
     font-size: 1.8rem;
     font-weight: bold;
-    margin-bottom: 20px;
+    padding-top: 1rem;
     color: #CED4DA;
 }
 
@@ -308,6 +319,7 @@ form input:focus {
     border: 1px solid #ef233c;
     border-radius: 0.5rem;
     background-color: #CED4DA;
+
 }
 
 .stat-title {
@@ -322,12 +334,12 @@ form input:focus {
 .stat-container p {
     margin: 5px 0;
     font-size: 1rem;
-    color: #343A40; /* Subtle gray for labels */
+    color: #343A40; 
 }
 
 .stat-container p span {
     font-weight: bold;
-    color: #212529; /* Make data values stand out */
+    color: #212529;
 }
 
 .dropdown{
@@ -337,6 +349,15 @@ form input:focus {
     border-radius: 0.5rem;
     cursor: pointer;
 }
+.next-race-disciplines{
+    margin: 0 auto;
+    width: 80%;
+    margin-top: 0.5rem;
+    background-color: #DEE2E6;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.5rem;
+}
+
 /* =================================================================
  * SECTIONS
  * ========================================================================== */

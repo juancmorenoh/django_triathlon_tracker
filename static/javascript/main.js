@@ -8,3 +8,4 @@ document.querySelectorAll('.actual-form').forEach(form => {
         e.stopPropagation(); // Prevents the click event from reaching the parent
     });
 });
+
