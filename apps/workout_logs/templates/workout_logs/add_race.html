@@ -4,9 +4,10 @@
 
 {% block content %}
     
+    <!--  If the form is an instance, is beign updated -->
     {% if race_form.instance.pk %}
         <h1>Update the race</h1>
-
+    <!-- Creating -->
     {% else %}
         <h1>Create a new race</h1>
     {% endif %}
@@ -30,9 +31,7 @@
                 </div>
             {% endfor %}
         </div>    
-        
-        
-        
+ 
         <button type="submit">Submit</button>
     </form>
     

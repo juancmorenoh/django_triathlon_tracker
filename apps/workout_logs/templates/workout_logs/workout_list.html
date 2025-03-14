@@ -13,7 +13,6 @@
             <a href="{% url 'add_workout' %}" >Add workout +</a>
         </div>
         
-    
         <p>There are {{ workouts_count }} workouts</p>
     
         <a href="{% url 'workout_list' %}">All</a>
@@ -21,7 +20,7 @@
         <form method="GET" action="{% url 'workout_list' %}">
             <label for="search-text">Filter by activity, distance or name</label>
             <input type="text" id="search-text" name="q" placeholder="Type to filter...">
-            <button type="submit">Submit</button>
+            
         </form>
         
     
