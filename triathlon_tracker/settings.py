@@ -64,7 +64,8 @@ INSTALLED_APPS = [
     #my apps
     'apps.workout_logs',
     'apps.users',
-    'apps.api'
+    'apps.api',
+    'apps.frontend',
 ]
 
 
