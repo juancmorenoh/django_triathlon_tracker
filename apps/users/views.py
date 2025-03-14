@@ -25,12 +25,20 @@ def register(request):
 
 @login_required
 def update_profile(request):
+    profile = request.user.profile
     if request.method == 'POST':
         user_form =  UserUpdateForm(request.POST, instance=request.user)
         profile_form = ProfileUpdateForm(request.POST,
                                         request.FILES,
-                                        instance=request.user.profile)
+                                        instance=profile)
         if user_form.is_valid() and profile_form.is_valid():
+            #If checkbox is true, delete profile img and set to null
+            #Model: if image null, set to default
+            if profile_form.cleaned_data['remove_image']:
+                
+                profile.image.delete()
+                profile.image = ''
+
             user_form.save()
             profile_form.save()
             return redirect('profile')

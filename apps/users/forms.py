@@ -21,6 +21,15 @@ class UserUpdateForm(forms.ModelForm):
 
 #form to update img
 class ProfileUpdateForm(forms.ModelForm):
+    remove_image = forms.BooleanField(required=False, label="Remove Profile Image")
+
+    #If the profile pic is not the default the form will show remove image field
+    def __init__(self, *args, **kwargs):
+        profile = kwargs.get('instance')
+        super().__init__(*args, **kwargs)
+        if profile.image.name == 'default.jpg':
+            self.fields['remove_image'].widget = forms.HiddenInput()
+            
     class Meta:
         model = Profile
         fields = ['image']
