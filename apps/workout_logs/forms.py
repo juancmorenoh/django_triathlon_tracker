@@ -14,10 +14,10 @@ class WorkoutForm(forms.ModelForm):
 
         labels = {
             'activity_type': 'Type of Activity',
-            'distance_m': 'Distance (in meters)',
+            'distance_m': 'Distance',
             'duration': 'Duration',
             'date': 'Workout Date',
-            'intensity': 'Intensity (1-5)',
+            'intensity': 'Intensity',
             'notes': 'Additional Notes',
         }
 
@@ -35,6 +35,7 @@ class RaceForm(forms.ModelForm):
             'date': forms.DateInput(attrs={'type': 'date'}),  # Ensures the browser uses a date picker
         }
 
+#Unused, replaced by DisciplineFormSet in update
 class DisciplineForm(forms.ModelForm):
     class Meta:
         model = Discipline
