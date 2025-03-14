@@ -1,5 +1,6 @@
 from django.shortcuts import render , redirect , get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from .models import Workout, Race, Goal, Discipline
 from .forms import WorkoutForm, RaceForm, GoalForm
 from django.urls import reverse
@@ -19,12 +20,11 @@ def workout_list(request):
             q = int(q)
             workouts = Workout.objects.filter(distance_m__icontains=q)
         else:
-             #Use Q object instead (remember to implement)
             workouts = (
-                Workout.objects.filter(activity_type__icontains=q) | 
-                Workout.objects.filter(name__icontains=q)
+                Workout.objects.filter(Q(activity_type__icontains=q) | Q(name__icontains=q))   
             )       
 
+    workouts = workouts.order_by('-date')
     workouts_count = workouts.count()
 
     context = {
@@ -97,7 +97,7 @@ def add_race(request):
     DisciplineFormSet = inlineformset_factory(
     Race,
     Discipline,
-    fields = ['name','distance','time_limit', 'order'],
+    fields = ['name','distance','time_limit','order'],
     extra = 3
     )
     
@@ -139,7 +139,7 @@ def update_race(request, race_id):
     DisciplineFormSet = inlineformset_factory(
         Race,
         Discipline,
-        fields=['name', 'distance', 'time_limit', 'order'],
+        fields=['name', 'distance', 'time_limit','order'],
         extra=extra_forms
     )
 
@@ -169,7 +169,7 @@ def update_race(request, race_id):
 
 def detail_race(request, race_id):
     race = get_object_or_404(Race, id= race_id)
-    disciplines = race.disciplines.all() #related_name in the model= disciplines
+    disciplines = race.disciplines.all() #related_name in the model= disciplines instead of discipline_set
     context={ 'race': race , 'disciplines': disciplines} 
     return render(request, 'workout_logs/detail_race.html', context)
 
@@ -226,7 +226,7 @@ def update_goal(request, id):
 
 
 
-
+#Generic function to delete the model and id of the object passed
 def delete_object(request, model, id, redirect_url):
     obj = get_object_or_404(model, id=id)
 
