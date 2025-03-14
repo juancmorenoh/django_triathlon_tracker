@@ -25,7 +25,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home/', workout_logs_views.home, name='home'),
+    path('', workout_logs_views.home, name='home'),
     
 
     path('', include('apps.workout_logs.urls')), # Include the workout_logs app URLs
