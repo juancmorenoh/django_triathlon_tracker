@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 import os
 from pathlib import Path
+from datetime import timedelta
+from dotenv import load_dotenv
+#credentials
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,8 +30,22 @@ SECRET_KEY = 'django-insecure-5zw8gf(579lw43*a!ofyf9u1a!jlsct(pkc7o2i1tm=aq5te$8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+#for deployment
+ALLOWED_HOSTS = ["*"]
 
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+}
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,10 +55,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #my apps
     
+    'rest_framework',
+    'corsheaders',
+
+    #my apps
     'apps.workout_logs',
     'apps.users',
+    'apps.api'
 ]
 
 
@@ -54,6 +76,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = 'triathlon_tracker.urls'
@@ -135,9 +158,14 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#properly explained min 16 django part 8
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  #Directory where UPLOADED FILES will be saved
+#where to upload pictures that are submitted
+MEDIA_ROOT = BASE_DIR / 'static/media/profile_pics' #Directory where UPLOADED FILES will be saved
 MEDIA_URL = '/media/' #this is the public URL of the MEDIA_ROOT directory
 
 LOGIN_REDIRECT_URL = 'workout_list'  # Redirect to homepage after login
 LOGIN_URL = 'login' #if user try to acces a "login_required" page, gets redirect to login page
+
+# CORS settings for Django
+
+CORS_ALLOW_ALL_ORIGINS = True #allow api requewst from anywhere
+CORS_ALLOWS_CREDENTIALS = True
