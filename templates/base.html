@@ -11,39 +11,7 @@
 <body>
     <!-- Header with navigation -->
     <header>
-        <nav class="nav-container">
-            <!-- Left-aligned logo -->
-            <div class="logo">
-                <a href="{% url 'home' %}">Triathlon Tracker</a>
-            </div>
-    
-            <!-- Center navigation links -->
-            <ul class="nav-list">
-                {% if user.is_authenticated %}         
-                    <li><a href="{% url 'profile' %}">Profile</a></li>      
-                    <li><a href="{% url 'workout_list' %}">Workouts</a></li>    
-                    <li><a href="{% url 'races' %}">Races</a></li>
-                    <li><a href="{% url 'goals' %}">Goals</a></li>
-                    
-                {% else %}
-                    <li><a href="{% url 'home' %}">Homepage</a></li>
-                    
-                {% endif %}
-            </ul>
-    
-            <!-- Right-aligned user actions -->
-            <div class="user-actions">
-                {% if user.is_authenticated %}
-                    <form method="post" action="{% url 'logout' %}" class="logout-form">
-                        {% csrf_token %}
-                        <button type="submit" class="nav-logout-btn">Logout</button>
-                    </form>
-                {% else %}
-                    <a href="{% url 'login' %}">Login</a>
-                    <a href="{% url 'register' %}">Register</a>
-                {% endif %}
-            </div>
-        </nav>
+        {% include "navbar.html" %}
     </header>
 
     <!-- Main content block that changes based on page -->
