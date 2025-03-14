@@ -88,9 +88,9 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / 'templates',  
+            BASE_DIR / 'apps/frontend/templates',  
         ],
-        'APP_DIRS': True,
+        'APP_DIRS': True, #find app-specific tenplates from any installed app
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -153,7 +153,7 @@ STATIC_URL = '/static/'
 
 # This is for a `static/` folder in the project root
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',  
+    BASE_DIR / 'apps/frontend/static',  
 ]
 
 # Default primary key field type
@@ -162,7 +162,7 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #where to upload pictures that are submitted
-MEDIA_ROOT = BASE_DIR / 'static/media/profile_pics' #Directory where UPLOADED FILES will be saved
+MEDIA_ROOT = BASE_DIR / 'apps/frontend/media/profile_pics' #Directory where UPLOADED FILES will be saved
 MEDIA_URL = '/media/' #this is the public URL of the MEDIA_ROOT directory
 
 LOGIN_REDIRECT_URL = 'workout_list'  # Redirect to homepage after login
