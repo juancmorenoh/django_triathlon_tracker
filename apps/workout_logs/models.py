@@ -52,7 +52,7 @@ class Workout(models.Model):
 
     intensity = models.PositiveSmallIntegerField(
         choices=INTENSITY_CHOICES,
-        help_text="Intensity of the workout on a scale from 1 - 5"
+        help_text="Intensity of the workout (1 - 5)"
     )
 
     notes = models.TextField(
@@ -102,7 +102,7 @@ class Race(models.Model):
         ordering = ['date']
 
     def __str__(self):
-        return self.race_name
+        return f'{self.race_name} - Race'
     
 
 class Discipline(models.Model):
@@ -137,4 +137,4 @@ class Goal(models.Model):
     end_date = models.DateField()
     description = models.TextField()
     def __str__(self):
-        return f'{self.goal_type} goal for {self.user.username}'
+        return f'{self.goal_type} - {self.user.username}'
