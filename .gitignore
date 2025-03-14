@@ -11,3 +11,4 @@ venv/
 # Ignore Django migrations
 */migrations/*
 
+node_modules/
