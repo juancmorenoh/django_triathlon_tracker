@@ -30,6 +30,7 @@ urlpatterns = [
 
     path('', include('apps.workout_logs.urls')), # Include the workout_logs app URLs
     path('user/', include('apps.users.urls')), # Include the users app URLs
+    path('api/', include('apps.api.urls')), # Include the API app URLs
 ]
 if settings.DEBUG:         
    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
