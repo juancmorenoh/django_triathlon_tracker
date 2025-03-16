@@ -17,9 +17,9 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import include, path
-from apps.workout_logs import views as workout_logs_views
+from backend.workout_logs import views as workout_logs_views
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from apps.api.views import UserCreate
+from backend.api.views import UserCreate
 #To handle static elements (only debug=true)
 from django.conf import settings 
 from django.conf.urls.static import static
@@ -34,9 +34,9 @@ urlpatterns = [
     path('', workout_logs_views.home, name='home'),
     
 
-    path('', include('apps.workout_logs.urls')), # Include the workout_logs app URLs
-    path('user/', include('apps.users.urls')), # Include the users app URLs
-    path('api/', include('apps.api.urls')), # Include the API app URLs
+    path('', include('backend.workout_logs.urls')), # Include the workout_logs app URLs
+    path('user/', include('backend.users.urls')), # Include the users app URLs
+    path('api/', include('backend.api.urls')), # Include the API app URLs
 ]
 if settings.DEBUG:         
    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
