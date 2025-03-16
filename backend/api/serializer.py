@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from apps.workout_logs.models import Workout
+from backend.workout_logs.models import Workout
 
 class UserSerializer(serializers.ModelSerializer):
   class Meta:

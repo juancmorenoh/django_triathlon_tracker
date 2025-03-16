@@ -62,10 +62,9 @@ INSTALLED_APPS = [
     'corsheaders',
 
     #my apps
-    'apps.workout_logs',
-    'apps.users',
-    'apps.api',
-    'apps.frontend',
+    'backend.workout_logs',
+    'backend.users',
+    'backend.api',
 ]
 
 
@@ -151,7 +150,7 @@ STATIC_URL = '/static/'
 
 # This is for a `static/` folder in the project root
 STATICFILES_DIRS = [
-    BASE_DIR / 'apps/frontend/static',  
+    BASE_DIR / 'static',  
 ]
 
 # Default primary key field type
@@ -160,7 +159,7 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #where to upload pictures that are submitted
-MEDIA_ROOT = BASE_DIR / 'apps/frontend/media/profile_pics' #Directory where UPLOADED FILES will be saved
+MEDIA_ROOT = BASE_DIR / 'media' #Directory where UPLOADED FILES will be saved
 MEDIA_URL = '/media/' #this is the public URL of the MEDIA_ROOT directory
 
 LOGIN_REDIRECT_URL = 'workout_list'  # Redirect to homepage after login

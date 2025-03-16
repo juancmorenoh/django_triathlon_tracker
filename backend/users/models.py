@@ -9,7 +9,7 @@ class Profile(models.Model):
     #on_delete=models.CASCADE = If User is deleted also delete their Profile
     #But not the other way around
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default='default.jpg',  null=True)
+    image = models.ImageField(default='default.jpg',upload_to='profile_pics/',  null=True)
 
     def __str__(self):
     
