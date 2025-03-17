@@ -7,6 +7,12 @@ from django.urls import reverse
 from datetime import datetime
 from django.forms import inlineformset_factory
 
+# Testing Api in workout_logs app with Race
+from .serializer import RaceSerializer
+from .models import Race
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated, AllowAny
+
 def home(request):
     return render(request,'workout_logs/homepage.html')
 
@@ -241,3 +247,7 @@ def delete_object(request, model, id, redirect_url):
     return render(request, 'workout_logs/generic_delete.html', context)
 
 
+
+class RaceList(generics.ListCreateAPIView):
+    queryset = Race.objects.all()
+    serializer_class = RaceSerializer
