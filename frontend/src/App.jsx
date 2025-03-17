@@ -4,6 +4,8 @@ import NavBar from './components/NavBar/NavBar';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
+import Workout from './pages/Workouts/Workouts';
+import WorkoutDetails from './components/WorkoutDetails/WorkoutDetails';
 
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -23,10 +25,12 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Routes>
-        <Route path='/home' element={<ProtectedRoute><Home /></ProtectedRoute>}></Route>
+        <Route path='/home' element={<Home />}></Route>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/logout' element={<Logout />}></Route>
         <Route path='/register' element={<RegisterAndLogout />}></Route>
+        <Route path='/workouts' element={<ProtectedRoute><Workout /></ProtectedRoute>}></Route>
+        <Route path='/workouts/:id' element={<ProtectedRoute><WorkoutDetails /></ProtectedRoute>}></Route>
       </Routes>
     </BrowserRouter>
     </>
