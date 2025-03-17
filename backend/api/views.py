@@ -29,6 +29,20 @@ class WorkoutDelete(generics.DestroyAPIView):
     user = self.request.user
     return Workout.objects.filter(user=user)
 
+class WorkoutDetail(generics.RetrieveAPIView):
+  serializer_class = WorkoutSerializer
+  permission_classes = [IsAuthenticated]
+
+  def get_queryset(self):
+    
+    user = self.request.user
+    return Workout.objects.filter(user=user)
+  
+  def get_object(self):
+    pk = self.kwargs.get('pk')
+    return Workout.objects.get(pk=pk, user=self.request.user)
+
+   
 
 class UserCreate(generics.CreateAPIView):
   queryset = User.objects.all()
