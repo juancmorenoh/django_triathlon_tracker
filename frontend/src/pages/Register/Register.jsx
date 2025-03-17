@@ -1,8 +1,8 @@
+import LoginRegisterForm from "../../components/Forms/Form";
+
 function Register(){
   return(
-    <div>
-      Register
-    </div>
+    <LoginRegisterForm route='/api/user/register' method='register' />
   )
 }
 
