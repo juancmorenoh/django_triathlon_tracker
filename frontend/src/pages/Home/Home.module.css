@@ -1,0 +1,13 @@
+.intro{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  width: 80%;
+  margin: 0 auto;
+  
+}
+
+.intro h1{
+  font-size: 35px;
+}
