@@ -1,5 +1,5 @@
-from .serializer import RaceSerializer, WorkoutSerializer, GoalSerializer
-from .models import Workout, Race, Goal
+from .serializer import RaceSerializer, WorkoutSerializer, GoalSerializer, DisciplineSerializer
+from .models import Workout, Race, Goal, Discipline
 from rest_framework import generics
 from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -25,10 +25,8 @@ class WorkoutList(generics.ListCreateAPIView):
      return Workout.objects.filter(user=user)
   
   def perform_create(self, serializer):
-    if serializer.is_valid():
-      serializer.save(user=self.request.user)
-    else:
-      print(serializer.errors)
+    serializer.save(user=self.request.user)
+    
 
 class WorkoutDetail(generics.RetrieveUpdateDestroyAPIView):
   queryset = Workout.objects.all()
@@ -38,8 +36,16 @@ class WorkoutDetail(generics.RetrieveUpdateDestroyAPIView):
   
 #View to Create and view RACES
 class RaceList(generics.ListCreateAPIView):
-    queryset = Race.objects.all()
-    serializer_class = RaceSerializer
+  serializer_class = RaceSerializer
+  permission_classes = [IsAuthenticated]
+  
+  def get_queryset(self):
+    user = self.request.user
+    return Race.objects.filter(user=user)
+  
+  def perform_create(self, serializer):
+    serializer.save(user=self.request.user)
+    
 
 class RaceDetail(generics.RetrieveUpdateDestroyAPIView):
   queryset = Race.objects.all()
@@ -48,15 +54,42 @@ class RaceDetail(generics.RetrieveUpdateDestroyAPIView):
 
 #View to Create and view GOALS
 class GoalList(generics.ListCreateAPIView):
-    queryset = Goal.objects.all()
-    serializer_class = GoalSerializer
+  serializer_class = GoalSerializer
+  permission_classes = [IsAuthenticated]
 
+  def get_queryset(self):
+    user = self.request.user
+    return Goal.objects.filter(user=user)
+  
+  def perform_create(self, serializer):
+    serializer.save(user=self.request.user)
+    
+     
+    
 class GoalDetail(generics.RetrieveUpdateDestroyAPIView):
   queryset = Goal.objects.all()
   serializer_class = GoalSerializer
   permission_classes = [IsAuthenticated]
 
+#View to Create and view DISCIPLINES
+class DisciplineList(generics.ListCreateAPIView):
+  serializer_class = DisciplineSerializer
+  permission_classes = [IsAuthenticated]
 
+  def get_queryset(self):
+    race_id = self.kwargs['pk']
+    return Discipline.objects.filter(race__id=race_id)
+  
+  def perform_create(self, serializer):
+    race_id = self.kwargs['pk']
+    race = Race.objects.get(id=race_id)
+    serializer.save(race=race)
+    
+    
+class DisciplineDetail(generics.RetrieveUpdateDestroyAPIView):
+  queryset = Discipline.objects.all()
+  serializer_class = DisciplineSerializer
+  permission_classes = [IsAuthenticated]
 
 
 
