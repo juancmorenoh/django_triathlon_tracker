@@ -21,9 +21,9 @@
 /* Shared styles across List pages END*/
 
 
-
-.tableContainer{
+.ListItemsWrapper{
   margin-top: 20px;
-
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
 }
-

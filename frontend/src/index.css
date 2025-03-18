@@ -10,6 +10,8 @@
 body{
   background-color: var(--color-bg);
   color: var(--color-text);
+  width: 100%;
+  min-height: 100vh;
 }
 
 a{
