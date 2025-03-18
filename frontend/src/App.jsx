@@ -1,6 +1,7 @@
 import React from 'react'
 import {BrowserRouter,Routes, Route, NavLink, Navigate} from 'react-router-dom'
 import NavBar from './components/NavBar/NavBar';
+import Footer from './components/Footer/Footer';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
@@ -32,6 +33,7 @@ function App() {
         <Route path='/workouts' element={<ProtectedRoute><Workout /></ProtectedRoute>}></Route>
         <Route path='/workouts/:id' element={<ProtectedRoute><WorkoutDetails /></ProtectedRoute>}></Route>
       </Routes>
+      <Footer />
     </BrowserRouter>
     </>
   )

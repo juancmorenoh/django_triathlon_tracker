@@ -1,0 +1,15 @@
+@import "../../vars.css";
+
+.footerContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--color-dark);
+  color: var(--color-text);
+  height: 100px;
+  font-size: 23px;
+}
