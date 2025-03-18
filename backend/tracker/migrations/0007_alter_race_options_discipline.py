@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('distance', models.IntegerField(help_text='Distance in meters')),
                 ('time_limit', models.DurationField(blank=True, help_text='Optional time limit for the discipline', null=True)),
                 ('order', models.PositiveIntegerField(help_text='Order of the discipline in the race')),
-                ('race', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='disciplines', to='workout_logs.race')),
+                ('race', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='disciplines', to='tracker.race')),
             ],
         ),
     ]
