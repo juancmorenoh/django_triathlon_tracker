@@ -64,7 +64,6 @@ INSTALLED_APPS = [
     #my apps
     'backend.tracker',
     'backend.users',
-    'backend.api',
 ]
 
 

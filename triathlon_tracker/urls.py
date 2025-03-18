@@ -19,24 +19,21 @@ from django.contrib import admin
 from django.urls import include, path
 from backend.tracker import views as tracker_views
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from backend.api.views import UserCreate
 #To handle static elements (only debug=true)
 from django.conf import settings 
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/users/register', UserCreate.as_view(), name='register'),
     path('api/token/', TokenObtainPairView.as_view(), name='get_toker'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='refresh'),
     path('api-auth/', include('rest_framework.urls')),
 
-    path('', tracker_views.home, name='home'),
+    # path('', tracker_views.home, name='home'),
     
 
-    path('', include('backend.tracker.urls')), # Include the tracker app URLs
+    path('tracker/', include('backend.tracker.urls')), # Include the tracker app URLs
     path('user/', include('backend.users.urls')), # Include the users app URLs
-    path('api/', include('backend.api.urls')), # Include the API app URLs
 ]
 if settings.DEBUG:         
    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
