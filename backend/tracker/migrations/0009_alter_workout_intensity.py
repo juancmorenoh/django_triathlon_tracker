@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('workout_logs', '0008_goal'),
+        ('tracker', '0008_goal'),
     ]
 
     operations = [

@@ -7,14 +7,14 @@ from django.urls import reverse
 from datetime import datetime
 from django.forms import inlineformset_factory
 
-# Testing Api in workout_logs app with Race
+# Testing Api in tracker app with Race
 from .serializer import RaceSerializer
 from .models import Race
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
 
 def home(request):
-    return render(request,'workout_logs/homepage.html')
+    return render(request,'tracker/homepage.html')
 
 @login_required
 def workout_list(request):
@@ -37,7 +37,7 @@ def workout_list(request):
         'workouts': workouts,
         'workouts_count' : workouts_count,
     } 
-    return render(request, 'workout_logs/workout_list.html', context)
+    return render(request, 'tracker/workout_list.html', context)
 
 @login_required
 def add_workout(request):
@@ -50,7 +50,7 @@ def add_workout(request):
         return redirect('workout_list')
     else:
         form = WorkoutForm()
-    return render(request, 'workout_logs/add_workout.html', {'form': form})
+    return render(request, 'tracker/add_workout.html', {'form': form})
 
 @login_required
 def update_workout(request, workout_id):
@@ -63,7 +63,7 @@ def update_workout(request, workout_id):
             return redirect('workout_list')  # Redirect to the workout list after update
     else:
         form = WorkoutForm(instance=workout)
-    return render(request, 'workout_logs/add_workout.html', {'form': form})
+    return render(request, 'tracker/add_workout.html', {'form': form})
 
 @login_required
 def delete_workout(request, id):
@@ -72,7 +72,7 @@ def delete_workout(request, id):
 @login_required
 def detail_workout(request,workout_id):
     workout = get_object_or_404(Workout, id=workout_id)
-    return render(request,'workout_logs/detail_workout.html',{'workout': workout})
+    return render(request,'tracker/detail_workout.html',{'workout': workout})
 
 
 #CRUD RACE MODEL
@@ -93,7 +93,7 @@ def races(request):
         'upcoming_races_count': upcoming_races_count,
     }
 
-    return render(request,'workout_logs/races.html', context)
+    return render(request,'tracker/races.html', context)
 
 
 ################################
@@ -130,7 +130,7 @@ def add_race(request):
         'race_form' : race_form,
         'formset': formset
     }
-    return render(request, 'workout_logs/add_race.html', context)
+    return render(request, 'tracker/add_race.html', context)
 
 def delete_race(request, id):
     return delete_object(request, Race, id, 'races')
@@ -170,14 +170,14 @@ def update_race(request, race_id):
         'race_form': race_form,
         'formset': formset,
     }
-    return render(request, 'workout_logs/add_race.html', context)
+    return render(request, 'tracker/add_race.html', context)
 
 
 def detail_race(request, race_id):
     race = get_object_or_404(Race, id= race_id)
     disciplines = race.disciplines.all() #related_name in the model= disciplines instead of discipline_set
     context={ 'race': race , 'disciplines': disciplines} 
-    return render(request, 'workout_logs/detail_race.html', context)
+    return render(request, 'tracker/detail_race.html', context)
 
 
 #CRUD Create, Read, Update, Delete for Goals
@@ -191,7 +191,7 @@ def goals(request):
         'achieved_goals': achieved_goals,
         'not_achieved_goals': not_achieved_goals,
     }
-    return render(request,'workout_logs/goals.html', context)
+    return render(request,'tracker/goals.html', context)
 
 
 def add_goal(request):
@@ -204,14 +204,14 @@ def add_goal(request):
             return redirect('goals')
     else:
         form = GoalForm()
-    return render(request, 'workout_logs/add_goal.html', {'form': form})
+    return render(request, 'tracker/add_goal.html', {'form': form})
 
 def delete_goal(request, id):
     return delete_object(request, Goal, id, 'goals')
 
 def detail_goal(request, id):
     goal = get_object_or_404(Goal, id=id)
-    return render(request, 'workout_logs/detail_goal.html', {'goal': goal})
+    return render(request, 'tracker/detail_goal.html', {'goal': goal})
 
 def update_goal(request, id):
     goal = get_object_or_404(Goal, id=id)
@@ -226,7 +226,7 @@ def update_goal(request, id):
         'goal': goal, 
         'form': form
         }
-    return render(request, 'workout_logs/create_goal.html', context)
+    return render(request, 'tracker/create_goal.html', context)
 
 
 
@@ -244,7 +244,7 @@ def delete_object(request, model, id, redirect_url):
         'object': obj,
         'reverse_url': reverse(redirect_url),
     }
-    return render(request, 'workout_logs/generic_delete.html', context)
+    return render(request, 'tracker/generic_delete.html', context)
 
 
 

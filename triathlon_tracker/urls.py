@@ -17,7 +17,7 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import include, path
-from backend.workout_logs import views as workout_logs_views
+from backend.tracker import views as tracker_views
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from backend.api.views import UserCreate
 #To handle static elements (only debug=true)
@@ -31,10 +31,10 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='refresh'),
     path('api-auth/', include('rest_framework.urls')),
 
-    path('', workout_logs_views.home, name='home'),
+    path('', tracker_views.home, name='home'),
     
 
-    path('', include('backend.workout_logs.urls')), # Include the workout_logs app URLs
+    path('', include('backend.tracker.urls')), # Include the tracker app URLs
     path('user/', include('backend.users.urls')), # Include the users app URLs
     path('api/', include('backend.api.urls')), # Include the API app URLs
 ]

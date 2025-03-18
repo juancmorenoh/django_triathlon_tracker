@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from .forms import UserRegistrationForm, ProfileUpdateForm, UserUpdateForm
 from django.contrib.auth.decorators import login_required
 
-from backend.workout_logs.models import Workout,Race, Discipline
+from backend.tracker.models import Workout,Race, Discipline
 from datetime import timedelta, datetime
 from django.db.models import Avg, Max, Sum, Count
 from django.utils.timezone import localtime

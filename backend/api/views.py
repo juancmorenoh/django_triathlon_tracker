@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from backend.workout_logs.models import Workout
+from backend.tracker.models import Workout
 from .serializer import WorkoutSerializer, UserSerializer
 
 # Create your views here.

@@ -62,7 +62,7 @@ INSTALLED_APPS = [
     'corsheaders',
 
     #my apps
-    'backend.workout_logs',
+    'backend.tracker',
     'backend.users',
     'backend.api',
 ]

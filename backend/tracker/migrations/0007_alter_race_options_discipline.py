@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('workout_logs', '0006_race'),
+        ('tracker', '0006_race'),
     ]
 
     operations = [

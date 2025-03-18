@@ -8,7 +8,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('workout_logs', '0007_alter_race_options_discipline'),
+        ('tracker', '0007_alter_race_options_discipline'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 

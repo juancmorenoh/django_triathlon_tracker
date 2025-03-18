@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class WorkoutLogsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'backend.workout_logs'
+    name = 'backend.tracker'
