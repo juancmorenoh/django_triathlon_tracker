@@ -1,11 +1,14 @@
 from django.urls import path
 
-from .views import UserCreate
+from .views import *
 # from . import views as user_views
 # from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path('create/', UserCreate.as_view(), name='user-create')
+    path('create/', UserCreate.as_view(), name='user-create'),
+    path('users/', UserList.as_view(), name='user-list'),
+    path('me/', UserMe.as_view(), name='user-me'),
+    
 
     # path('register/', user_views.register, name='register'),
     # path('profile/', user_views.profile, name='profile'),
