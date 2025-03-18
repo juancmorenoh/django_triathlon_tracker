@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import WorkoutList, WorkoutDetail, RaceList, RaceDetail,GoalList, GoalDetail
+from .views import *
 from rest_framework.urlpatterns import format_suffix_patterns
 from . import views
 
@@ -9,8 +9,13 @@ urlpatterns = [
     path('workouts/<int:pk>/', WorkoutDetail.as_view(), name = 'workout-detail'),
     path('races/', RaceList.as_view(), name = 'race-list'),
     path('races/<int:pk>/', RaceDetail.as_view(), name = 'race-detail'),
-    path('goals/', RaceList.as_view(), name = 'goal-list'),
-    path('goals/<int:pk>/', RaceDetail.as_view(), name = 'goal-detail'),
+
+    path('disciplines/', DisciplineList.as_view(), name = 'discipline-list'),
+    path('disciplines/<int:pk>', DisciplineDetail.as_view(), name = 'discipline-detail'),
+
+
+    path('goals/', GoalList.as_view(), name = 'goal-list'),
+    path('goals/<int:pk>/', GoalDetail.as_view(), name = 'goal-detail'),
 
 
     # path('workouts', views.workout_list, name='workout_list'),
