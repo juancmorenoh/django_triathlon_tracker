@@ -121,7 +121,7 @@ class Discipline(models.Model):
 
     distance = models.IntegerField(help_text="Distance in meters")
     time_limit = models.DurationField(null=True, blank=True, help_text="Optional time limit for the discipline")
-    order = models.PositiveIntegerField(help_text="Order of the discipline in the race")
+    order = models.PositiveIntegerField(null=True, blank=True, help_text="Order of the discipline in the race")
     
 
     def __str__(self):
