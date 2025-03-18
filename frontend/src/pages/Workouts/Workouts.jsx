@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styles from './Workouts.module.css';
 import api from "../../api"
 
-function Workout() {
+function Workouts() {
   const [workouts, setWorkouts] = useState([]);
 
   useEffect(() => {
@@ -13,18 +13,18 @@ function Workout() {
   const getWorkouts = () =>{
     /* backend url in api app */
     api
-    .get('/api/workouts')
+    .get('/tracker/workouts')
     .then((res) => res.data)
     .then((data) => {setWorkouts(data); console.log(data);})
     .catch((err) => alert(err));
   }
   return (
-    <div className={styles.workoutListContainer}>
-      <h2>Workout List</h2>
-      <div>
-        <Link to="/workouts/new">Add New Workout</Link>
+    <div className={styles.listContainer}>
+      <div className={styles.introList}>
+        <h2>Workout List</h2>
+        <Link className={styles.addElementLink} to="/workouts/new">Add New Workout</Link>
       </div>
-      <div className="workout-table">
+      <div className={styles.tableContainer}>
           
         <table>
           <thead>
@@ -66,4 +66,4 @@ function Workout() {
   );
 }
 
-export default Workout
+export default Workouts

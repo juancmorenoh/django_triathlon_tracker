@@ -72,7 +72,7 @@ class Race(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
     
 
-    race_name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
     date = models.DateField()
     prediction_time = models.DurationField()
     final_time = models.DurationField(null=True, blank=True)

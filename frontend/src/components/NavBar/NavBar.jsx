@@ -19,7 +19,7 @@ function NavBar(){
         <ul className={styles.navLinks}>
           <li><NavLink href="#">Profile</NavLink></li>
           <li><NavLink to="/workouts">Workouts</NavLink></li>
-          <li><a href="#">Races</a></li>
+          <li><NavLink to="/races">Races</NavLink></li>
           <li><a href="#">Goals</a></li>
         </ul>
       </div>
