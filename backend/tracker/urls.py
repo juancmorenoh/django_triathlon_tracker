@@ -1,8 +1,10 @@
 from django.urls import path
 from .views import WorkoutList, WorkoutDetail, RaceList, RaceDetail,GoalList, GoalDetail
-
+from rest_framework.urlpatterns import format_suffix_patterns
+from . import views
 
 urlpatterns = [
+    path('', views.api_root, name='api_root'),
     path('workouts/', WorkoutList.as_view(), name = 'workout-list'),
     path('workouts/<int:pk>/', WorkoutDetail.as_view(), name = 'workout-detail'),
     path('races/', RaceList.as_view(), name = 'race-list'),
@@ -31,3 +33,6 @@ urlpatterns = [
     # path('goals/<int:id>/delete/', views.delete_goal, name='delete_goal'),
     # path('goals/<int:id>/update/', views.update_goal, name='update_goal'),
 ]
+
+# Add format suffixes for API endpoints
+urlpatterns = format_suffix_patterns(urlpatterns)

@@ -1,7 +1,18 @@
 from .serializer import RaceSerializer, WorkoutSerializer, GoalSerializer
 from .models import Workout, Race, Goal
 from rest_framework import generics
+from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
+
+@api_view(['GET'])
+def api_root(request, format=None):
+    return Response({
+        'workouts': reverse('workout-list', request=request, format=format),
+        'races': reverse('race-list', request=request, format=format),
+        'goals': reverse('goal-list', request=request, format=format),
+    })
 
 #View to Create and view WORKOUTS
 class WorkoutList(generics.ListCreateAPIView):
