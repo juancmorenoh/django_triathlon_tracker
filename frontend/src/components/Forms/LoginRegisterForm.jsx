@@ -23,7 +23,7 @@ function LoginRegisterForm({route,method}) {
       if(method === 'login'){
         localStorage.setItem(ACCESS_TOKEN, res.data.access)
         localStorage.setItem(REFRESH_TOKEN, res.data.refresh)
-        navigate("/home")
+        navigate("/workouts")
       }else{
         navigate("/login")
       }
@@ -36,6 +36,10 @@ function LoginRegisterForm({route,method}) {
     
   }
   return(
+    //form can be improved
+    //replace onSubmit with action
+    //no need for Onchage each input etc..(check Chef Claude exercise)
+    //use FormData and "name=" in input
     <form onSubmit={handleSubmit} className="form-container">
       <h1>{name}</h1>
       <input type="text" 

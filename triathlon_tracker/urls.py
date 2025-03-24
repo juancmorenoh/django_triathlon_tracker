@@ -33,7 +33,7 @@ urlpatterns = [
     
 
     path('tracker/', include('backend.tracker.urls')), # Include the tracker app URLs
-    path('user/', include('backend.users.urls')), # Include the users app URLs
+    path('users/', include('backend.users.urls')), # Include the users app URLs
 ]
 if settings.DEBUG:         
    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

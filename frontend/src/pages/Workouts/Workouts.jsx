@@ -11,7 +11,7 @@ function Workouts() {
   }, []);
 
   const getWorkouts = () =>{
-    /* backend url in api app */
+    //Fetch data from api
     api
     .get('/tracker/workouts')
     .then((res) => res.data)

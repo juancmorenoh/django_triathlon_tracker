@@ -8,7 +8,9 @@ import Register from './pages/Register/Register';
 import Workouts from './pages/Workouts/Workouts';
 import WorkoutDetails from './components/WorkoutDetails/WorkoutDetails';
 import Races from './pages/Races/Races';
+import Goals from './pages/Goals/Goals';
 import ProtectedRoute from './components/ProtectedRoute';
+import Profile from './pages/Profile/Profile';
 
 function Logout(){
   localStorage.clear();
@@ -33,6 +35,8 @@ function App() {
         <Route path='/workouts' element={<ProtectedRoute><Workouts /></ProtectedRoute>}></Route>
         <Route path='/workouts/:id' element={<ProtectedRoute><WorkoutDetails /></ProtectedRoute>}></Route>
         <Route path='/races' element={<ProtectedRoute><Races /></ProtectedRoute>}></Route>
+        <Route path='/goals' element={<ProtectedRoute><Goals /></ProtectedRoute>}></Route>
+        <Route path='/profile' element={<ProtectedRoute><Profile /></ProtectedRoute>}></Route>
       </Routes>
       <Footer />
     </BrowserRouter>

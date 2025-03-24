@@ -8,7 +8,7 @@ urlpatterns = [
     path('create/', UserCreate.as_view(), name='user-create'),
     path('users/', UserList.as_view(), name='user-list'),
     path('me/', UserMe.as_view(), name='user-me'),
-    
+    path('profile/', ProfileView.as_view(), name='user-profile'),
 
     # path('register/', user_views.register, name='register'),
     # path('profile/', user_views.profile, name='profile'),

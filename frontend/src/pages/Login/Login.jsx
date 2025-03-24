@@ -1,4 +1,4 @@
-import LoginRegisterForm from "../../components/Forms/Form";
+import LoginRegisterForm from "../../components/Forms/LoginRegisterForm";
 
 function Login(){
   return(

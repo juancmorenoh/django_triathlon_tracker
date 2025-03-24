@@ -1,4 +1,3 @@
-import React from 'react'
 import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import styles from './Races.module.css';
@@ -18,9 +17,10 @@ function Race() {
      .catch(error => alert(error));
   }
 
+  console.log(new Date());
   //Separate PAST from FUTURE races
-  const upcomingRaces = races.filter(race => new Date(race.date > new Date()));
-  const pastRaces = races.filter(race => new Date(race.date < new Date()));
+  const upcomingRaces = races.filter(race => new Date(race.date) > new Date());
+  const pastRaces = races.filter(race => new Date(race.date) < new Date());
 
   return (
     <div className={styles.listContainer}>
@@ -31,19 +31,37 @@ function Race() {
       <div className={styles.ListItemsWrapper}>
         <div>
           <h3>Upcoming Races</h3>
-          {upcomingRaces.map(race => (
-            <div key={race.id}>
-              <Link to={`/races/${race.id}`}>{race.name}</Link>
+          {upcomingRaces.length === 0 ? (
+            <div>
+              <p>No upcoming races found.</p>
             </div>
-          ))}
+          ) :(
+            <ul>
+              {upcomingRaces.map(race => (
+                <li key={race.id}>
+                  <Link to={`/races/${race.id}`}>{race.name}</Link>
+                </li>
+              ))}
+            </ul>
+          )}
+          
         </div>
         <div>
           <h3>Past Races</h3>
-          {pastRaces.map(race => (
-            <div key={race.id}>
-              <Link to={`/races/${race.id}`}>{race.name}</Link>
+          {pastRaces.length === 0 ? (
+            <div>
+              <p>No Past races found.</p>
             </div>
-          ))}
+          ) :(
+            <ul>
+              {pastRaces.map(race => (
+                <li key={race.id}>
+                  <Link to={`/races/${race.id}`}>{race.name}</Link>
+                </li>
+              ))}
+            </ul>
+          )}
+          
         </div>
       </div>
     </div>
