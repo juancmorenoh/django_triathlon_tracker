@@ -3,8 +3,9 @@
 
 import { useState } from "react";
 import api from '../../api';
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../constants";
+import { useAuth } from '../../../AuthContext.jsx';
 
 function LoginRegisterForm({route,method}) {
   const [username, setUsername] = useState('');
@@ -12,6 +13,8 @@ function LoginRegisterForm({route,method}) {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const {isAuthenticated, handleLogin} = useAuth();
+
 
   const name = method === "login" ? "Login" : "Register";
   const handleSubmit =  async (e) => {
@@ -26,6 +29,7 @@ function LoginRegisterForm({route,method}) {
       if(method === 'login'){
         localStorage.setItem(ACCESS_TOKEN, res.data.access)
         localStorage.setItem(REFRESH_TOKEN, res.data.refresh)
+        handleLogin();
         navigate("/workouts")
       }else{
         navigate("/login")
