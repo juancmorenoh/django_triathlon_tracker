@@ -11,7 +11,7 @@ function ProtectRoute({children}) {
   // useEffect runs when the component mounts to check if the user is authenticated
   useEffect(()=>{
     auth().catch(()=> setIsAuthorized(false))
-  })
+  },[])
 
   const refreshToken = async () => {
     //get the refresh token
