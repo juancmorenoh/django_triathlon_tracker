@@ -1,3 +1,6 @@
+// Notes:
+//-Might want to use formData instead of handling each input separately
+
 import { useState } from "react";
 import api from '../../api';
 import { useNavigate } from "react-router-dom";
