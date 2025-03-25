@@ -13,6 +13,8 @@ function Workouts() {
   const[selectedWorkout, setSelectedWorkout] = useState(null)
   const[isToUpdate, setIsToUpdate] = useState(false)
 
+  const[isDuration, setDuration] = useState(false)
+
   useEffect(() => {
     getWorkouts();
   }, []);
@@ -112,7 +114,9 @@ function Workouts() {
 
     {/* section for charts */}
     <section>
-      {/* <WorkoutPie workouts={workouts}></WorkoutPie> */}
+      <WorkoutPie workouts={workouts} isDuration={isDuration}></WorkoutPie>
+      {/* make it a slide button */}
+      <button onClick={()=>setDuration(prev=>!prev)}>Duration/Quantity</button>
     </section>
     </>
     
