@@ -1,3 +1,6 @@
+//This is a component to share state of authenticated across the whole app.
+//It was created specifically to share the state between NavBar and login Form(when user login the navbar needed update)
+
 import { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext();
