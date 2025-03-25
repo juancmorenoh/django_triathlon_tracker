@@ -6,6 +6,8 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
+
+# Display available urls in root rest _framework
 @api_view(['GET'])
 def api_root(request, format=None):
     return Response({
