@@ -1,18 +1,15 @@
-import {useEffect} from 'react'
+import {useEffect,useState} from 'react'
+import api from "../../api"
 
-function WorkoutForm({
-  createUpdateWorkout, 
-  selectedWorkout,
-  isToUpdate,
-  setActivityType, 
-  setDate, 
-  setDistance, 
-  setDuration, 
-  setName, 
-  setIntensity,
-  setNotes
-  }){
-  
+function WorkoutForm({selectedWorkout,isToUpdate}){
+  //Workoutform state
+    const [activity_type, setActivityType] = useState('');
+    const [date, setDate] = useState('');
+    const [distance_m, setDistance] = useState('');
+    const [duration, setDuration] = useState('');
+    const [name, setName] = useState('');
+    const [intensity, setIntensity] = useState('');
+    const [notes, setNotes] = useState('');
 
   //If workout is to update, set the field value to selectedWorkout[fields]
   useEffect(() => {
@@ -26,6 +23,25 @@ function WorkoutForm({
       setNotes(selectedWorkout.notes);
     }
   }, [isToUpdate, selectedWorkout]);
+
+  //Flexible function to either CREATE or UPDATE a workout
+  //if workout para is passed, reuqest PUT
+  const createUpdateWorkout = (e, workoutId = null) => {
+    e.preventDefault();
+    const url = workoutId ? `/tracker/workouts/${workoutId}/` : '/tracker/workouts/';
+    const method = workoutId ? api.put : api.post;
+  
+    method(url, { activity_type, date, distance_m, duration, name, intensity, notes })
+      .then((res) => {
+        console.log(res.data);
+        if ((workoutId && res.status === 200) || (!workoutId && res.status === 201)) {
+          alert(workoutId ? 'Workout updated successfully' : 'Workout created successfully');
+        } else {
+          alert('Error saving workout');
+        }
+      })
+      .catch((error) => alert(error));
+  };
 
   //Select CREATE or UPDATE api function
   const handleSubmit = (e) => {
@@ -51,7 +67,7 @@ function WorkoutForm({
         <select
           id='activity_type'
           name="activity_type"
-          value={getValue('activity_type')}
+          value={activity_type}
           onChange={(e) => setActivityType(e.target.value)}
         >
           <option value="">Select Activity</option>
@@ -62,12 +78,12 @@ function WorkoutForm({
       </div>
 
       <div>
-        <label htmlFor='distance'>Distance (m)</label>
+        <label htmlFor='distance_m'>Distance (m)</label>
         <input
           type="number"
           name="distance_m"
-          id='distance'
-          value={getValue('distance_m')}
+          id='distance_m'
+          value={distance_m}
           onChange={(e) => setDistance(e.target.value)}
           required
         />
@@ -79,7 +95,7 @@ function WorkoutForm({
           type="text"
           id='duration'
           name="duration"
-          value={getValue('duration')}
+          value={duration}
           onChange={(e) => setDuration(e.target.value)}
           placeholder="e.g. 01:30:00"
           required
@@ -92,7 +108,7 @@ function WorkoutForm({
           type="date"
           name="date"
           id='date'
-          value={getValue('date')}
+          value={date}
           onChange={(e) => setDate(e.target.value)}
           required
         />
@@ -103,7 +119,7 @@ function WorkoutForm({
         <select 
           name="intensity"
           id='intensity'
-          value={getValue('intensity')}
+          value={intensity}
           onChange={(e) => setIntensity(e.target.value)}
         >
           <option value="">Select Intensity</option>
@@ -120,7 +136,7 @@ function WorkoutForm({
         <textarea
           name="notes"
           id='notes'
-          value={getValue('notes')}
+          value={notes}
           onChange={(e) => setNotes(e.target.value)}
         ></textarea>
       </div>
@@ -130,7 +146,7 @@ function WorkoutForm({
         <input
           id='name'
           type="text"
-          value={getValue('name')}
+          value={name}
           onChange={(e) => setName(e.target.value)}
         />
       </div>
