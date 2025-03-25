@@ -1,6 +1,8 @@
 import {useEffect,useState} from 'react'
 import api from "../../api"
-
+//To update workout component after creating/updating,
+//pass workout state and set it to [...=>]
+  
 function WorkoutForm({selectedWorkout,isToUpdate}){
   //Workoutform state
     const [activity_type, setActivityType] = useState('');

@@ -18,7 +18,7 @@ function App() {
       <BrowserRouter>
         <NavBar />
         <AppRoutes />
-        <Footer />
+        {/* <Footer /> */}
       </BrowserRouter>
     </AuthProvider>   
     </>
