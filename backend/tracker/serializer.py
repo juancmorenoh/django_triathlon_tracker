@@ -8,7 +8,7 @@ class WorkoutSerializer(serializers.HyperlinkedModelSerializer):
   user = serializers.PrimaryKeyRelatedField(read_only=True)
   class Meta:
     model = Workout
-    fields = "__all__"
+    fields = ['id', 'activity_type', 'date', 'distance_m', 'duration', 'name', 'intensity', 'user', 'notes']
     read_only_fields = ['user']
 
 class DisciplineSerializer(serializers.HyperlinkedModelSerializer):
