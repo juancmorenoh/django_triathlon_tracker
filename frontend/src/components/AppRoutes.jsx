@@ -1,7 +1,6 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute.jsx';
-import WorkoutDetails from './WorkoutDetails/WorkoutDetails.jsx';
 import Profile from './../pages/Profile/Profile.jsx';
 import Workouts from './../pages/Workouts/Workouts.jsx';
 import Home from './../pages/Home/Home.jsx';
@@ -34,7 +33,6 @@ function AppRoutes() {
 
       {/* Protected Routes */}
       <Route path='/workouts' element={<ProtectedRoute><Workouts /></ProtectedRoute>} />
-      <Route path='/workouts/:id' element={<ProtectedRoute><WorkoutDetails /></ProtectedRoute>} />
       <Route path='/races' element={<ProtectedRoute><Races /></ProtectedRoute>} />
       <Route path='/goals' element={<ProtectedRoute><Goals /></ProtectedRoute>} />
       <Route path='/profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
