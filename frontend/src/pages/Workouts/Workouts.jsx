@@ -19,6 +19,7 @@ function Workouts() {
 
   const[isWorkoutOpen, setIsWorkoutOpen] = useState(false)
   const[selectedWorkout, setSelectedWorkout] = useState(null)
+  const[isToUpdate, setIsToUpdate] = useState(false)
 
   useEffect(() => {
     getWorkouts();
@@ -34,34 +35,48 @@ function Workouts() {
     .catch((error) => alert(error));
   }
 
-  //save workout form in database
-  const createWorkout = (e) => {
+
+  //Flexible function to either CREATE or UPDATE a workout
+  //if workout para is passed, reuqest PUT
+  const createUpdateWorkout = (e, workoutId = null) => {
     e.preventDefault();
-    api
-    .post('/tracker/workouts/', {activity_type, date, distance_m, duration, name, intensity, notes})
-    .then((res) => {
-      console.log(res.data)
-      if (res.status == 201) alert('Success')
-      else (alert('Error'))
-      
-    })
-    .catch((error) => alert(error))
-  }
+    const url = workoutId ? `/tracker/workouts/${workoutId}/` : '/tracker/workouts/';
+    const method = workoutId ? api.put : api.post;
   
+    method(url, { activity_type, date, distance_m, duration, name, intensity, notes })
+      .then((res) => {
+        console.log(res.data);
+        if ((workoutId && res.status === 200) || (!workoutId && res.status === 201)) {
+          alert(workoutId ? 'Workout updated successfully' : 'Workout created successfully');
+        } else {
+          alert('Error saving workout');
+        }
+      })
+      .catch((error) => alert(error));
+  };
+  
+  //function passed to workoutdetail component to set update status
+  function clickUpdateWorkout(){
+    setIsToUpdate(prev=>!prev)
+  }
+
   //Function to toggle the view of the workout
   function handleWorkoutClick(workout){
     //if selectedWorkout not null, if not null compare it to workout.id
     if (selectedWorkout?.id === workout.id) {
       setIsWorkoutOpen((prev) => !prev);
+      setIsToUpdate(false)
     } else {
       setSelectedWorkout(workout);
       setIsWorkoutOpen(true);
+      setIsToUpdate(false)
     }
   }
 
   return (
     <>
-    <div className={styles.listContainer}>
+    <h1>WORKOUTS.JSX</h1>
+    <div className={styles.listContainer}>    
       <div className={styles.introList}>
         <h2>Workout List</h2>
       </div>
@@ -106,10 +121,12 @@ function Workouts() {
         </table>
       </div>
     </div>
-    {/* Section to create a new Workout */}
+    {/* Section to create or update a Workout */}
     <section className={styles.workout}>
       <WorkoutForm 
-        createWorkout={createWorkout}
+        createUpdateWorkout={createUpdateWorkout}
+        selectedWorkout={selectedWorkout}
+        isToUpdate={isToUpdate}
         setActivityType={setActivityType} 
         setDate={setDate}
         setDistance={setDistance}
@@ -123,10 +140,9 @@ function Workouts() {
     {/* section to see details of workout (DELETE/UPDATE) */}
     {isWorkoutOpen &&(
       <section>
-        <WorkoutDetails workout={selectedWorkout}></WorkoutDetails>
+        <WorkoutDetails workout={selectedWorkout} clickUpdateWorkout={clickUpdateWorkout}></WorkoutDetails>
       </section>
     )}
-    
     </>
     
     

@@ -2,7 +2,7 @@ import { useLocation,useNavigate } from "react-router-dom";
 import { useState, useEffect} from "react";
 import api from "../../api"
 
-function WorkoutDetails({workout}) {
+function WorkoutDetails({workout,clickUpdateWorkout}) {
 
   if (!workout) {
     return <div>No workout data found!</div>;
@@ -35,6 +35,7 @@ function WorkoutDetails({workout}) {
       <p><strong>Name:</strong> {workout.name}</p>
       <p><strong>Intensity:</strong> {workout.intensity}</p>
       <button onClick={() => deleteWorkout(workout.id)}>Delete Workout</button>
+      <button onClick={clickUpdateWorkout}>Update Workout</button>
     </div>
     </>
   );

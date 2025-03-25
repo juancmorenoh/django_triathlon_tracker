@@ -1,7 +1,9 @@
-import React from 'react'
+import {useEffect} from 'react'
 
 function WorkoutForm({
-  createWorkout, 
+  createUpdateWorkout, 
+  selectedWorkout,
+  isToUpdate,
   setActivityType, 
   setDate, 
   setDistance, 
@@ -11,18 +13,48 @@ function WorkoutForm({
   setNotes
   }){
   
+
+  //If workout is to update, set the field value to selectedWorkout[fields]
+  useEffect(() => {
+    if (isToUpdate && selectedWorkout) {
+      setActivityType(selectedWorkout.activity_type);
+      setDate(selectedWorkout.date);
+      setDistance(selectedWorkout.distance_m);
+      setDuration(selectedWorkout.duration);
+      setName(selectedWorkout.name);
+      setIntensity(selectedWorkout.intensity);
+      setNotes(selectedWorkout.notes);
+    }
+  }, [isToUpdate, selectedWorkout]);
+
+  //Select CREATE or UPDATE api function
+  const handleSubmit = (e) => {
+    e.preventDefault(); 
+    if (isToUpdate && selectedWorkout) {
+      createUpdateWorkout(e, selectedWorkout.id);
+    } else {
+      createUpdateWorkout(e);
+    }
+  };
+
+  //set correct value for update fields, set empty for new form
+  const getValue = (fieldName) => {
+    return isToUpdate && selectedWorkout ? selectedWorkout[fieldName] : '';
+  }
+
   return (
     <>
     <h1>WORKOUT.JSX </h1>
-    <form onSubmit={createWorkout}>
+    <form onSubmit={handleSubmit}>
       <div>
         <label htmlFor='activity_type'>Activity Type</label>
         <select
           id='activity_type'
           name="activity_type"
+          value={getValue('activity_type')}
           onChange={(e) => setActivityType(e.target.value)}
         >
-          <option value="" disabled>Select Activity</option>
+          <option value="">Select Activity</option>
           <option value="swim">Swim</option>
           <option value="ride">Ride</option>
           <option value="run">Run</option>
@@ -35,6 +67,7 @@ function WorkoutForm({
           type="number"
           name="distance_m"
           id='distance'
+          value={getValue('distance_m')}
           onChange={(e) => setDistance(e.target.value)}
           required
         />
@@ -46,6 +79,7 @@ function WorkoutForm({
           type="text"
           id='duration'
           name="duration"
+          value={getValue('duration')}
           onChange={(e) => setDuration(e.target.value)}
           placeholder="e.g. 01:30:00"
           required
@@ -58,6 +92,7 @@ function WorkoutForm({
           type="date"
           name="date"
           id='date'
+          value={getValue('date')}
           onChange={(e) => setDate(e.target.value)}
           required
         />
@@ -68,6 +103,7 @@ function WorkoutForm({
         <select 
           name="intensity"
           id='intensity'
+          value={getValue('intensity')}
           onChange={(e) => setIntensity(e.target.value)}
         >
           <option value="">Select Intensity</option>
@@ -84,6 +120,7 @@ function WorkoutForm({
         <textarea
           name="notes"
           id='notes'
+          value={getValue('notes')}
           onChange={(e) => setNotes(e.target.value)}
         ></textarea>
       </div>
@@ -93,11 +130,13 @@ function WorkoutForm({
         <input
           id='name'
           type="text"
+          value={getValue('name')}
           onChange={(e) => setName(e.target.value)}
         />
       </div>
 
-      <button type="submit">Submit Workout</button>
+      <button type="submit">{isToUpdate&&selectedWorkout ? 'Update Workout' : 'Create Workout'}</button>
+      
     </form>
     </>
     
