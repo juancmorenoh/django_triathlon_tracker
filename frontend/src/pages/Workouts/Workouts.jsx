@@ -6,6 +6,7 @@ import WorkoutForm from './../../components/Forms/WorkoutForm.jsx';
 import WorkoutDetails from './../../components/Workout/WorkoutDetails.jsx';
 import WorkoutPie from './../../components/Charts/WorkoutPie.jsx';
 import Statistics from './../../components/Statistics.jsx';
+import {filterWorkoutsByActivity, sortWorkouts} from './../../utils.js';
 
 function Workouts() {
   const [workouts, setWorkouts] = useState([]);
@@ -16,7 +17,27 @@ function Workouts() {
 
   const[isDuration, setDuration] = useState(false)
 
-  const[activityfilter, setActivityFilter] = useState("run");
+  const[activityFilter, setActivityFilter] = useState("");
+  const[order, setOrder] = useState("desc");
+  const[filterOrder,setFilterOrder] = useState("duration")
+  const[searchText, setSearchText] = useState("");
+
+
+  // Filter workouts by activity
+  let filteredWorkouts = filterWorkoutsByActivity(workouts, activityFilter);
+  //if search text not empty  search text is contained in
+  if (searchText !== "") {
+    filteredWorkouts = filteredWorkouts.filter(workout =>
+      Object.values(workout).some(value =>
+        value.toString().toLowerCase().includes(searchText.toLowerCase())
+      )
+    );
+  }
+
+  // Sort the filtered workouts by whatever filterOrder is(date,distance,duration)
+  // and what order, ascending or descending
+  const orderedWorkouts = sortWorkouts(filteredWorkouts, filterOrder, order);
+
 
   useEffect(() => {
     getWorkouts();
@@ -35,11 +56,13 @@ function Workouts() {
 
   
   //function passed to workoutdetail component to set update status
+  //inside workout details
   function clickUpdateWorkout(){
     setIsToUpdate(prev=>!prev)
   }
 
-  //Function to toggle the view of the workout
+  //Function to toggle the view of the workout details
+  //by clicking on the table
   function handleWorkoutClick(workout){
     //if selectedWorkout not null, if not null compare it to workout.id
     if (selectedWorkout?.id === workout.id) {
@@ -52,6 +75,11 @@ function Workouts() {
     }
   }
 
+  //function to set order to either asc or desc
+  function toggleOrder(){
+    setOrder((prev)=>prev === 'asc'? 'desc' : 'asc');
+  }
+
   return (
     <>
     <h1>WORKOUTS.JSX</h1>
@@ -60,7 +88,30 @@ function Workouts() {
         <h2>Workout List</h2>
       </div>
       <div className={styles.tableContainer}>
-          
+        <input
+          type="text"
+          placeholder="Search workouts..."
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+        />
+        {/* could create reusable component, also used in statistics component V */}
+        <button onClick={()=>setActivityFilter("")}>All</button>
+        <button onClick={()=>setActivityFilter("run")}>Run</button>
+        <button onClick={()=>setActivityFilter("ride")}>Ride</button>
+        <button onClick={()=>setActivityFilter("swim")}>Swim</button>
+        {order == "asc" ? (
+          <button onClick={toggleOrder}>Descending</button>
+        ):(
+          <button onClick={toggleOrder}>Ascending</button>
+        )}
+
+        <label htmlFor="filter-order"></label>
+        <select id="filter-order" value={filterOrder} onChange={(e) => setFilterOrder(e.target.value)}>
+          <option value="date">Date</option>
+          <option value="duration">Duration</option>
+          <option value="distance_m">Distance</option>
+        </select>
+
         <table>
           <thead>
             <tr>
@@ -73,8 +124,8 @@ function Workouts() {
             </tr>
           </thead>
           <tbody>
-            {workouts.length > 0 ? (
-              workouts.map((workout) => ( 
+            {orderedWorkouts.length > 0 ? (
+              orderedWorkouts.map((workout) => ( 
                 <>
                 <tr key={workout.id} 
                     onClick={()=>handleWorkoutClick(workout)}>
@@ -124,10 +175,7 @@ function Workouts() {
 
     {/* section for statistics */}
     <section>
-      <Statistics workouts={workouts} activityfilter={activityfilter} />
-      <button onClick={()=>setActivityFilter("run")}>Run</button>
-      <button onClick={()=>setActivityFilter("ride")}>Ride</button>
-      <button onClick={()=>setActivityFilter("swim")}>Swim</button>
+      <Statistics workouts={workouts}/>
     </section>
     </>
     

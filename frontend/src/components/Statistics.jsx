@@ -1,15 +1,12 @@
 import {useState} from 'react'
 import {convertToSeconds,convertToHHMMSS} from './../utils.js';
+import {filterWorkoutsByActivity} from './../utils.js';
 
-function Statistics({workouts,activityfilter}) {
+function Statistics({workouts,activityfilterStats}) {
   const[selectedYear, setSelectedYear] = useState(new Date().getFullYear())
-
-  function filterWorkouts(){
-    return workouts.filter(workout => workout.activity_type === activityfilter)
-  }
-
-  const filteredWorkouts = filterWorkouts()
-  console.log(filteredWorkouts)
+  const[activityfilter, setActivityFilter] = useState("run");
+  
+  const filteredWorkouts = filterWorkoutsByActivity(workouts, activityfilter)
   
   function calculateWorkoutStats(workouts, yearFilter) {
     const now = new Date();
@@ -82,50 +79,56 @@ function Statistics({workouts,activityfilter}) {
   // Generate a list of years based on the workouts data
   const allYears = [...new Set(workouts.map(workout => new Date(workout.date).getFullYear()))];
   return (
-    <div className="statistics">
-      <h2>Workout Statistics</h2>
+    <>
+      <div className="statistics">
+        <h2>Workout Statistics</h2>
 
-      <div className="stat-group">
-        <h3>All time</h3>
-        <p><strong>Total Activities:</strong> {stats.totalActivities}</p>
-        <p><strong>Total Distance (m):</strong> {stats.totalDistance} meters</p>
-        <p><strong>Total Time:</strong> {stats.totalTime}</p>
+        <div className="stat-group">
+          <h3>All time</h3>
+          <p><strong>Total Activities:</strong> {stats.totalActivities}</p>
+          <p><strong>Total Distance (m):</strong> {stats.totalDistance} meters</p>
+          <p><strong>Total Time:</strong> {stats.totalTime}</p>
+        </div>
+        <hr />
+        <div className="stat-group">
+          <h3>Last 4 Weeks</h3>
+          <p><strong>Activities:</strong> {stats.last4Weeks.activities}</p>
+          <p><strong>Total Distance (m):</strong> {stats.last4Weeks.totalDistance} meters</p>
+          <p><strong>Total Time:</strong> {stats.last4Weeks.totalTime}</p>
+          <p><strong>Average Distance:</strong> {stats.last4Weeks.avgDistance.toFixed(2)} meters</p>
+          <p><strong>Average Time:</strong> {stats.last4Weeks.avgTime}</p>
+        </div>
+        <hr />
+        <div className="stat-group">
+          <h3>Yearly Stats ({selectedYear})</h3>
+          <label htmlFor="yearSelect">Select Year:</label>
+          <select
+            id="yearSelect"
+            value={selectedYear}
+            onChange={(e) => setSelectedYear(Number(e.target.value))}
+          >
+            {allYears.map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
+          </select>
+          <p><strong>Activities:</strong> {stats.yearly.activities}</p>
+          <p><strong>Total Distance (m):</strong> {stats.yearly.totalDistance} meters</p>
+          <p><strong>Total Time:</strong> {stats.yearly.totalTime}</p>
+        </div>
+        <hr />
+        <div className="stat-group">
+          <h3>Longest Workout</h3>
+          <p><strong>Longest Distance:</strong> {stats.longestDistance ? stats.longestDistance.distance_m : 'N/A'} meters</p>
+          <p><strong>Longest Time:</strong> {stats.longestTime ? stats.longestTime.duration : 'N/A'}</p>
+        </div>
       </div>
-      <hr />
-      <div className="stat-group">
-        <h3>Last 4 Weeks</h3>
-        <p><strong>Activities:</strong> {stats.last4Weeks.activities}</p>
-        <p><strong>Total Distance (m):</strong> {stats.last4Weeks.totalDistance} meters</p>
-        <p><strong>Total Time:</strong> {stats.last4Weeks.totalTime}</p>
-        <p><strong>Average Distance:</strong> {stats.last4Weeks.avgDistance.toFixed(2)} meters</p>
-        <p><strong>Average Time:</strong> {stats.last4Weeks.avgTime}</p>
-      </div>
-      <hr />
-      <div className="stat-group">
-        <h3>Yearly Stats ({selectedYear})</h3>
-        <label htmlFor="yearSelect">Select Year:</label>
-        <select
-          id="yearSelect"
-          value={selectedYear}
-          onChange={(e) => setSelectedYear(Number(e.target.value))}
-        >
-          {allYears.map((year) => (
-            <option key={year} value={year}>
-              {year}
-            </option>
-          ))}
-        </select>
-        <p><strong>Activities:</strong> {stats.yearly.activities}</p>
-        <p><strong>Total Distance (m):</strong> {stats.yearly.totalDistance} meters</p>
-        <p><strong>Total Time:</strong> {stats.yearly.totalTime}</p>
-      </div>
-      <hr />
-      <div className="stat-group">
-        <h3>Longest Workout</h3>
-        <p><strong>Longest Distance:</strong> {stats.longestDistance ? stats.longestDistance.distance_m : 'N/A'} meters</p>
-        <p><strong>Longest Time:</strong> {stats.longestTime ? stats.longestTime.duration : 'N/A'}</p>
-      </div>
-    </div>
+      <button onClick={()=>setActivityFilter("run")}>Run</button>
+      <button onClick={()=>setActivityFilter("ride")}>Ride</button>
+      <button onClick={()=>setActivityFilter("swim")}>Swim</button>
+    </>
+    
   )
 }
 
