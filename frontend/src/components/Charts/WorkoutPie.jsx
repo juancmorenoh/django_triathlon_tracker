@@ -1,6 +1,8 @@
 import {Chart as ChartJS} from 'chart.js/auto'
 import {Pie} from 'react-chartjs-2';
 import './../../styles/chart.css';
+import {convertToSeconds} from './../../utils.js';
+
 function WorkoutPie({workouts,isDuration}) {
 
   const activities = ['Swim', 'Run', 'Ride'];
@@ -22,11 +24,6 @@ function WorkoutPie({workouts,isDuration}) {
     }
   });
   
-  function convertToSeconds(duration) {
-    const [hours, minutes, seconds] = duration.split(':').map(Number);
-    return (hours * 3600) + (minutes * 60) + seconds;
-  }
-
   if (!workouts || workouts.length === 0) return <p>No workouts available</p>;
   return (
     <>

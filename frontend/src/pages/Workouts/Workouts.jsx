@@ -5,6 +5,7 @@ import api from "../../api"
 import WorkoutForm from './../../components/Forms/WorkoutForm.jsx';
 import WorkoutDetails from './../../components/Workout/WorkoutDetails.jsx';
 import WorkoutPie from './../../components/Charts/WorkoutPie.jsx';
+import Statistics from './../../components/Statistics.jsx';
 
 function Workouts() {
   const [workouts, setWorkouts] = useState([]);
@@ -14,6 +15,8 @@ function Workouts() {
   const[isToUpdate, setIsToUpdate] = useState(false)
 
   const[isDuration, setDuration] = useState(false)
+
+  const[activityfilter, setActivityFilter] = useState("run");
 
   useEffect(() => {
     getWorkouts();
@@ -117,6 +120,14 @@ function Workouts() {
       <WorkoutPie workouts={workouts} isDuration={isDuration}></WorkoutPie>
       {/* make it a slide button */}
       <button onClick={()=>setDuration(prev=>!prev)}>Duration/Quantity</button>
+    </section>
+
+    {/* section for statistics */}
+    <section>
+      <Statistics workouts={workouts} activityfilter={activityfilter} />
+      <button onClick={()=>setActivityFilter("run")}>Run</button>
+      <button onClick={()=>setActivityFilter("ride")}>Ride</button>
+      <button onClick={()=>setActivityFilter("swim")}>Swim</button>
     </section>
     </>
     
